@@ -1,0 +1,31 @@
+<h1>Winner Index</h1>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>AwardId</th>
+    <th>Location</th>
+    <th>Award Category</th>
+    <th>Person</th>
+    <th>Winner?</th>
+  </thead>
+
+  {{#each list }}
+    <tr id='nomination{{id}}'>
+      <td><a href="/nominations/{{id}}">{{id}}</a></td>
+      <td><a href="/awards/{{awardId}}">{{awardId}}</a></td>
+      <td>{{location}}</td>
+      <td>{{awardcategory}}</td>
+      <td>{{person}}</td>
+      <td>
+        {{#if winner}}
+          Yes
+        {{else}}
+          No
+        {{/if}}
+      </td>
+      <td><a href="/nominations/{{id}}/edit">edit</a></td>
+    </tr>
+  {{/each}}
+
+</table>

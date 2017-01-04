@@ -1,0 +1,23 @@
+<h1>Award Index</h1>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Location</th>
+    <th>Award Category</th>
+  </thead>
+
+  {{#each list }}
+    <tr id='award{{id}}'>
+      <td><a href="/awards/{{id}}">{{id}}</a></td>
+      <td>{{location}}</td>
+      <td>{{awardcategory}}</td>
+      <td><a href="/awards/{{id}}/edit">edit</a></td>
+    </tr>
+  {{/each}}
+
+</table>
+
+<div>
+  <a class="btn btn-default" href="/awards/new" role="button">Create</a>
+</div>

@@ -1,0 +1,46 @@
+<h1>Award</h1>
+
+<p>Id: {{award.id}}</p>
+<p>Location: {{award.location}}</p>
+<p>Award Category: {{award.awardcategory}}</p>
+
+<p>Persons:</p>
+
+<table>
+  <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Winner?</th>
+  </thead>
+
+  {{#each persons }}
+    <tr id='person{{id}}'>
+      <td><a href="/persons/{{id}}">{{id}}</a></td>
+      <td>{{name}}</td>
+      <td>{{description}}</td>
+      <td>
+        {{#if winner}}
+          Yes
+        {{else}}
+          No
+        {{/if}}
+      </td>
+      <td>
+        <form action="/winners/{{nominationId}}/choose" method="post">
+          <button type="submit" class="btn btn-default">Choose Winner</button>
+        </form>
+      </td>
+      <td>
+        <form action="/winners/{{nominationId}}/unchoose" method="post">
+          <button type="submit" class="btn btn-default">Unchoose Winner</button>
+        </form>
+      </td>
+    </tr>
+  {{/each}}
+
+</table>
+
+<div>
+  <a class="btn btn-default" href="/awards/{{id}}/edit" role="button">Edit</a>
+</div>

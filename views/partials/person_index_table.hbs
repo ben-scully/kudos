@@ -1,0 +1,18 @@
+<table class="table table-hover">
+  <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th><a href="/persons/new">+ADD</a></th>
+  </thead>
+
+  {{#each persons }}
+    <tr id='person{{id}}'>
+      <td><a href="/persons/{{id}}">{{id}}</a></td>
+      <td><a href="/persons/{{id}}">{{name}}</a></td>
+      <td><a href="/persons/{{id}}">{{description}}</a></td>
+      <td><a href="/persons/{{id}}/edit">edit</a></td>
+    </tr>
+  {{/each}}
+
+</table>
