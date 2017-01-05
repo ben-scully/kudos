@@ -24,14 +24,14 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTableIfNotExists('weeks', table => {
       table.increments('id')
-      table.date('startoftheweek')
-      table.date('endoftheweek')
+      table.date('friday')
     }),
 
     knex.schema.createTableIfNotExists('awards', table => {
       table.increments('id')
       table.integer('locationId')
       table.integer('awardcategoryId')
+      table.integer('weekId')
     }),
 
     knex.schema.createTableIfNotExists('nominations', table => {
@@ -57,12 +57,12 @@ exports.down = function(knex, Promise) {
       console.log('awardcategorys Table was dropped')
     }),
 
-    knex.schema.dropTableIfExists('persons').then( () => {
-      console.log('persons Table was dropped')
-    }),
-
     knex.schema.dropTableIfExists('weeks').then( () => {
       console.log('weeks Table was dropped')
+    }),
+
+    knex.schema.dropTableIfExists('persons').then( () => {
+      console.log('persons Table was dropped')
     }),
 
     knex.schema.dropTableIfExists('awards').then( () => {

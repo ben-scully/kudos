@@ -8,6 +8,7 @@ module.exports = {
     return Promise.all([
       knex('persons').select(),
       knex('locations').select(),
+      knex('weeks').select(),
       knex('awards')
         .join('locations', 'locations.id', 'awards.locationId')
         .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')

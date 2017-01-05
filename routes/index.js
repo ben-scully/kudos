@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
         title: 'Kudos',
         persons: data[0],
         locations: data[1],
-        awards: data[2]
+        weeks: data[2],
+        awards: data[3]
       })
     })
     .catch( error => { console.log(error) })

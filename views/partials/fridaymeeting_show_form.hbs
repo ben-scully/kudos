@@ -1,10 +1,19 @@
-<form action="/fridaymeetings/location/" method="get">
+<form action="/fridaymeetings/allawards/" method="get">
 
   <div class="form-group">
     <label for="locationId">Location</label>
     <select class="form-control" name="locationId">
       {{#each locations}}
         <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="weekId">Week</label>
+    <select class="form-control" name="weekId">
+      {{#each weeks}}
+        <option value="{{id}}">{{friday}}</option>
       {{/each}}
     </select>
   </div>

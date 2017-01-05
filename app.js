@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
+var dateformat = require("dateformat")
+
 
 var index = require('./routes/index');
 var awardcategorys = require('./routes/awardcategorys');
@@ -23,10 +25,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
-hbs.registerHelper('testy', idx => 1);
-
 hbs.registerHelper('openingRow', idx => (idx + 2) % 2 == 0);
 hbs.registerHelper('closingRow', idx => (idx + 1) % 2 == 0);
+hbs.registerHelper('dateformat', date => dateformat(date, 'longDate'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
