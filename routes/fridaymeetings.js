@@ -1,23 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../db/fridaymeetings');
 
+var knexConfig = require('../knexfile.js')
+var knex = require('knex')(knexConfig["development"])
+
+var db = require('../db/fridaymeetings')(knex);
 
 // Show Awards by Location
 router.get('/allawards', function(req, res, next) {
-  console.log('Show Awards by Location', req.query)
+  console.log('Show Awards by Location [req.query]:\n', req.query)
   var filterObj = {
     'locationId': req.query.locationId,
     'weekId': req.query.weekId
   }
-  // console.log('filterObj\n', filterObj)
 
   db.findFridayMeetingAllAwards(filterObj)
     .then( data => {
-      console.log('GET show /fridaymeetings/allawards/?locationId=x&weekId=y\n', data)
+      console.log('GET show /fridaymeetings/allawards/?locationId=x&weekId=y :\n', data)
 
       var jsonObj = buildJsonObj(data)
-      console.log('jsonObj\n', jsonObj)
 
       res.render('fridaymeeting_allawards_show', jsonObj)
     })
@@ -26,22 +27,31 @@ router.get('/allawards', function(req, res, next) {
 
 
 var buildJsonObj = data => {
-  var awards = []
+  var location = data[0][0].location
+  var date = data[0][0].date
+  var awardcategorys = data[1]
+  var nominations = data[2]
+  var arr = []
 
-  data[0].map(award => {
-    awards.push(award)
-    award.nominations = []
+  console.log('location:\n', location)
+  console.log('date:\n', date)
+  console.log('awardcategorys:\n', awardcategorys)
+  console.log('nominations:\n', nominations)
 
-    data[1].map(nomination => {
-      if (award.awardId == nomination.awardId)
-        award.nominations.push(nomination)
+  awardcategorys.map(category => {
+    arr.push(category)
+    category.nominations = []
+
+    nominations.map(nomination => {
+      if (category.awardcategoryId == nomination.awardcategoryId)
+        category.nominations.push(nomination)
     })
   })
 
   return {
-    awards: awards,
-    location: awards[0].location,
-    date: awards[0].date
+    location: location,
+    date: date,
+    awardcategorys: arr
   }
 }
 

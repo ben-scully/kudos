@@ -5,18 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
-var dateformat = require("dateformat")
-
+var dateformat = require('dateformat')
 
 var index = require('./routes/index');
-var awardcategorys = require('./routes/awardcategorys');
-var locations = require('./routes/locations');
-var persons = require('./routes/persons');
-var awards = require('./routes/awards');
-var nominations = require('./routes/nominations');
-var winners = require('./routes/winners');
 var fridaymeetings = require('./routes/fridaymeetings');
-var admins = require('./routes/admins');
+// var nominations = require('./routes/nominations')(knex);
+//
+// var awardcategorys = require('./routes/awardcategorys')(knex);
+// var locations = require('./routes/locations')(knex);
+// var persons = require('./routes/persons')(knex);
+//
+// var admins = require('./routes/admins')(knex);
 
 var app = express();
 
@@ -28,6 +27,7 @@ hbs.registerPartials(path.join(__dirname, 'views/partials'));
 hbs.registerHelper('openingRow', idx => (idx + 2) % 2 == 0);
 hbs.registerHelper('closingRow', idx => (idx + 1) % 2 == 0);
 hbs.registerHelper('dateformat', date => dateformat(date, 'longDate'));
+hbs.registerHelper('pastDate', date => Date.now() > new Date(date));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -38,14 +38,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/awardcategorys', awardcategorys);
-app.use('/locations', locations);
-app.use('/persons', persons);
-app.use('/awards', awards);
-app.use('/nominations', nominations);
-app.use('/winners', winners);
 app.use('/fridaymeetings', fridaymeetings);
-app.use('/admins', admins);
+// app.use('/nominations', nominations);
+//
+// app.use('/awardcategorys', awardcategorys);
+// app.use('/locations', locations);
+// app.use('/persons', persons);
+//
+// app.use('/admins', admins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

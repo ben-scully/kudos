@@ -1,28 +1,37 @@
 <form action="/nominations" method="post">
 
   <div class="form-group">
-    <label for="personId">Person</label>
-    <select class="form-control" name="personId">
-      {{#each persons}}
-        <option value="{{id}}">{{name}}</option>
-      {{/each}}
-    </select>
-  </div>
-
-  <div class="form-group">
     <label for="locationId">Location</label>
     <select class="form-control" name="locationId">
-      {{#each locations}}
+      {{#each nomination_new_form.locations}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
   </div>
 
   <div class="form-group">
-    <label for="awardId">Award</label>
-    <select class="form-control" name="awardId">
-      {{#each awards}}
-        <option value="{{id}}">{{location}}, {{awardcategory}}</option>
+    <label for="weekId">Week</label>
+    <select class="form-control" name="weekId">
+      {{#each nomination_new_form.weeks}}
+        <option value="{{id}}">{{date}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="awardcategoryId">Award Category</label>
+    <select class="form-control" name="awardcategoryId">
+      {{#each nomination_new_form.awardcategorys}}
+        <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="personId">Person</label>
+    <select class="form-control" name="personId">
+      {{#each nomination_new_form.persons}}
+        <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
   </div>

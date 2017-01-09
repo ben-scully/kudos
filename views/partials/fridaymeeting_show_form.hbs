@@ -3,7 +3,7 @@
   <div class="form-group">
     <label for="locationId">Location</label>
     <select class="form-control" name="locationId">
-      {{#each locations}}
+      {{#each fridaymeeting_show_form.locations}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
@@ -12,8 +12,8 @@
   <div class="form-group">
     <label for="weekId">Week</label>
     <select class="form-control" name="weekId">
-      {{#each weeks}}
-        <option value="{{id}}">{{friday}}</option>
+      {{#each fridaymeeting_show_form.weeks}}
+        <option value="{{id}}">{{date}}</option>
       {{/each}}
     </select>
   </div>
