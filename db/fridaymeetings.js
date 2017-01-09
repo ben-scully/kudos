@@ -8,6 +8,7 @@ module.exports = knex => {
     findFridayMeetingAllAwards: filterObj => {
 
       return Promise.all([
+
         knex('fridaymeetings')
           .join('nominations', 'nominations.fridaymeetingId', 'fridaymeetings.id')
           .join('locations', 'locations.id', 'fridaymeetings.locationId')
@@ -52,51 +53,76 @@ module.exports = knex => {
       ])
     },
 
+
     findFridayMeetingOneAward: filterObj => {
-      console.log('findFridayMeetingOneAward\n', filterObj)
 
       return Promise.all([
-        knex('awards')
-          .where({ 'awards.id': filterObj.awardId })
-          .join('locations', 'locations.id', 'awards.locationId')
-          .join('weeks', 'weeks.id', 'awards.weekId')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
+
+        knex('fridaymeetings')
+          .join('nominations', 'nominations.fridaymeetingId', 'fridaymeetings.id')
+          .join('locations', 'locations.id', 'fridaymeetings.locationId')
+          .join('weeks', 'weeks.id', 'fridaymeetings.weekId')
+          .where({
+            'fridaymeetings.locationId': filterObj.locationId,
+            'fridaymeetings.weekId': filterObj.weekId
+          })
+          .limit(1)
           .select(
-            'awards.id as id',
             'locations.name as location',
-            'weeks.friday as date',
-            'awardcategorys.name as awardcategory',
-            'awardcategorys.description as description'
+            'weeks.date as date'
           ),
-        knex('nominations')
-          .where({ 'nominations.awardId': filterObj.awardId })
-          .join('persons', 'persons.id', 'nominations.personId')
-          .select(
-            'persons.name as name',
-            'nominations.id as nominationId',
-            'nominations.description as description',
-            'nominations.winner as winner'
-          )
+
+          knex('nominations')
+            .join('fridaymeetings', 'fridaymeetings.id', 'nominations.fridaymeetingId')
+            .join('awardcategorys', 'awardcategorys.id', 'nominations.awardcategoryId')
+            .where({
+              'fridaymeetings.locationId': filterObj.locationId,
+              'fridaymeetings.weekId': filterObj.weekId,
+              'nominations.awardcategoryId': filterObj.awardcategoryId
+            })
+            .limit(1)
+            .select(
+              'awardcategorys.id as id',
+              'awardcategorys.name as awardcategory',
+              'awardcategorys.description as description'
+            ),
+
+          knex('nominations')
+            .join('fridaymeetings', 'fridaymeetings.id', 'nominations.fridaymeetingId')
+            .join('weeks', 'weeks.id', 'fridaymeetings.weekId')
+            .join('persons', 'persons.id', 'nominations.personId')
+            .join('awardcategorys', 'awardcategorys.id', 'nominations.awardcategoryId')
+            .where({
+              'fridaymeetings.locationId': filterObj.locationId,
+              'fridaymeetings.weekId': filterObj.weekId,
+              'nominations.awardcategoryId': filterObj.awardcategoryId
+            })
+            .select(
+              'persons.name as name',
+              'nominations.description as description',
+              'nominations.winner as winner',
+              'weeks.date as date'
+            )
+
         ])
     },
 
-    findFridayMeetingOneNomination: filterObj => {
-      console.log('findFridayMeetingOneNomination\n', filterObj)
+
+    findFridayMeetingOneNomination: id => {
 
       return knex('nominations')
-        .where({ 'nominations.id': filterObj.nominationId })
-        .join('awards', 'awards.id', 'nominations.awardId')
-        .join('weeks', 'weeks.id', 'awards.weekId')
-        .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('locations', 'locations.id', 'awards.locationId')
+        .join('fridaymeetings', 'fridaymeetings.id', 'nominations.fridaymeetingId')
+        .join('weeks', 'weeks.id', 'fridaymeetings.weekId')
+        .join('locations', 'locations.id', 'fridaymeetings.locationId')
+        .join('awardcategorys', 'awardcategorys.id', 'nominations.awardcategoryId')
         .join('persons', 'persons.id', 'nominations.personId')
+        .where({ 'nominations.id': id })
         .select(
+          'weeks.date as date',
           'locations.name as location',
-          'weeks.friday as date',
           'awardcategorys.name as awardcategory',
           'awardcategorys.description as awardcategoryDescription',
           'persons.name as name',
-          'nominations.id as nominationId',
           'nominations.description as nominationDescription',
           'nominations.winner as winner'
         )

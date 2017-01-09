@@ -6,9 +6,11 @@ var knex = require('knex')(knexConfig["development"])
 
 var db = require('../db/fridaymeetings')(knex);
 
+
 // Show Awards by Location
 router.get('/allawards', function(req, res, next) {
-  console.log('Show Awards by Location [req.query]:\n', req.query)
+  console.log('GET /allawards QUERY:\n', req.query)
+
   var filterObj = {
     'locationId': req.query.locationId,
     'weekId': req.query.weekId
@@ -16,9 +18,10 @@ router.get('/allawards', function(req, res, next) {
 
   db.findFridayMeetingAllAwards(filterObj)
     .then( data => {
-      console.log('GET show /fridaymeetings/allawards/?locationId=x&weekId=y :\n', data)
+      console.log('GET /allawards RAW:\n', data)
 
-      var jsonObj = buildJsonObj(data)
+      var jsonObj = buildAllAwardsObj(data)
+      console.log('GET /allawards JSON:\n', jsonObj)
 
       res.render('fridaymeeting_allawards_show', jsonObj)
     })
@@ -26,17 +29,12 @@ router.get('/allawards', function(req, res, next) {
 });
 
 
-var buildJsonObj = data => {
+var buildAllAwardsObj = data => {
   var location = data[0][0].location
   var date = data[0][0].date
   var awardcategorys = data[1]
   var nominations = data[2]
   var arr = []
-
-  console.log('location:\n', location)
-  console.log('date:\n', date)
-  console.log('awardcategorys:\n', awardcategorys)
-  console.log('nominations:\n', nominations)
 
   awardcategorys.map(category => {
     arr.push(category)
@@ -57,47 +55,79 @@ var buildJsonObj = data => {
 
 
 // Show Award by Id
-router.get('/oneaward/:id', function(req, res, next) {
-  console.log('Show Award by Id', req.params.id)
-  var filterObj = { 'awardId': req.params.id }
-  console.log('filterObj\n', filterObj)
+router.get('/oneaward', function(req, res, next) {
+  console.log('GET /oneaward QUERY:\n', req.query)
+
+  var filterObj = {
+    locationId: req.query.locationId,
+    weekId: req.query.weekId,
+    awardcategoryId: req.query.awardcategoryId
+  }
 
   db.findFridayMeetingOneAward(filterObj)
     .then( data => {
-      console.log('GET show /fridaymeetings/oneaward/:id\n', data)
-      console.log('GET show /fridaymeetings/oneaward/:id\n', {
-        award: data[0][0],
-        nominations: data[1],
-        location: data[0][0].location,
-        date: data[0][0].date
-      })
+      console.log('GET /oneaward RAW:\n', data)
 
-      res.render('fridaymeeting_oneaward_show', {
-        award: data[0][0],
-        nominations: data[1],
-        location: data[0][0].location,
-        date: data[0][0].date
-      })
+      var jsonObj = buildOneAwardObj(data)
+      console.log('GET /oneaward JSON:\n', jsonObj)
+
+      res.render('fridaymeeting_oneaward_show', jsonObj)
     })
     .catch( error => { console.log(error) })
 });
+
+
+var buildOneAwardObj = data => {
+  var location = data[0][0].location
+  var date = data[0][0].date
+  var awardcategory = data[1][0]
+  var nominations = data[2]
+
+  return {
+    location: location,
+    date: date,
+    awardcategory: awardcategory,
+    nominations: nominations
+  }
+}
 
 
 // Show Award by Id
 router.get('/onenomination/:id', function(req, res, next) {
-  console.log('Show Nomination by Id', req.params.id)
-  var filterObj = { 'nominationId': req.params.id }
-  console.log('filterObj\n', filterObj)
+  console.log('GET /onenomination PARAMS:\n', req.params)
 
-  db.findFridayMeetingOneNomination(filterObj)
+  db.findFridayMeetingOneNomination(req.params.id)
     .then( data => {
-      console.log('GET show /fridaymeetings/onenomination/:id\n', data)
-      console.log('GET show /fridaymeetings/onenomination/:id\n', data[0])
+      console.log('GET /onenomination/:id RAW:\n', data)
 
-      res.render('fridaymeeting_onenomination_show', data[0])
+      var jsonObj = buildOneNominationObj(data)
+      console.log('GET /onenomination/:id JSON:\n', jsonObj)
+
+      res.render('fridaymeeting_onenomination_show', jsonObj)
     })
     .catch( error => { console.log(error) })
 });
+
+
+var buildOneNominationObj = data => {
+  var location = data[0].location
+  var date = data[0].date
+  var awardcategory = data[0].awardcategory
+  var awardcategoryDescription = data[0].awardcategoryDescription
+  var name = data[0].name
+  var nominationDescription = data[0].nominationDescription
+  var winner = data[0].winner
+
+  return {
+    location: location,
+    date: date,
+    awardcategory: awardcategory,
+    awardcategoryDescription: awardcategoryDescription,
+    name: name,
+    nominationDescription: nominationDescription,
+    winner: winner
+  }
+}
 
 
 module.exports = router;
