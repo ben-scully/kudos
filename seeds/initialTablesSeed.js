@@ -153,30 +153,73 @@ exports.seed = function(knex, Promise) {
     }),
 
 
-    // 200-899
+    // 500-899
+    knex('awards').del(),
+
+    knex('awards').insert({
+      id: 500,
+      fridaymeetingId: 130,
+      awardcategoryId: 50
+    }),
+    knex('awards').insert({
+      id: 501,
+      fridaymeetingId: 130,
+      awardcategoryId: 51
+    }),
+    knex('awards').insert({
+      id: 502,
+      fridaymeetingId: 130,
+      awardcategoryId: 52
+    }),
+    knex('awards').insert({
+      id: 503,
+      fridaymeetingId: 130,
+      awardcategoryId: 53
+    }),
+
+    knex('awards').insert({
+      id: 504,
+      fridaymeetingId: 131,
+      awardcategoryId: 50
+    }),
+    knex('awards').insert({
+      id: 505,
+      fridaymeetingId: 131,
+      awardcategoryId: 51
+    }),
+    knex('awards').insert({
+      id: 506,
+      fridaymeetingId: 131,
+      awardcategoryId: 52
+    }),
+    knex('awards').insert({
+      id: 507,
+      fridaymeetingId: 131,
+      awardcategoryId: 53
+    }),
+
+
+    // 200-499
     knex('nominations').del(),
 
     knex('nominations').insert({
       id: 201,
       personId: 3121,
-      fridaymeetingId: 130,
-      awardcategoryId: 50,
+      awardId: 501,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
     knex('nominations').insert({
       id: 202,
       personId: 3122,
-      fridaymeetingId: 130,
-      awardcategoryId: 50,
+      awardId: 501,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
     knex('nominations').insert({
       id: 203,
       personId: 3123,
-      fridaymeetingId: 130,
-      awardcategoryId: 50,
+      awardId: 501,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
@@ -185,16 +228,14 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 204,
       personId: 3124,
-      fridaymeetingId: 130,
-      awardcategoryId: 51,
+      awardId: 502,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
     knex('nominations').insert({
       id: 205,
       personId: 3125,
-      fridaymeetingId: 130,
-      awardcategoryId: 51,
+      awardId: 502,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
@@ -203,32 +244,28 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 206,
       personId: 3121,
-      fridaymeetingId: 130,
-      awardcategoryId: 52,
+      awardId: 503,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
     knex('nominations').insert({
       id: 207,
       personId: 3124,
-      fridaymeetingId: 130,
-      awardcategoryId: 52,
+      awardId: 503,
       description: 'zEx auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
     knex('nominations').insert({
       id: 208,
       personId: 3125,
-      fridaymeetingId: 130,
-      awardcategoryId: 52,
+      awardId: 503,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
     knex('nominations').insert({
       id: 209,
       personId: 3127,
-      fridaymeetingId: 130,
-      awardcategoryId: 52,
+      awardId: 503,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
@@ -237,8 +274,7 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 210,
       personId: 3127,
-      fridaymeetingId: 130,
-      awardcategoryId: 53,
+      awardId: 500,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
@@ -248,16 +284,14 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 211,
       personId: 3130,
-      fridaymeetingId: 131,
-      awardcategoryId: 50,
+      awardId: 504,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
     knex('nominations').insert({
       id: 212,
       personId: 3121,
-      fridaymeetingId: 131,
-      awardcategoryId: 50,
+      awardId: 504,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
@@ -266,8 +300,7 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 213,
       personId: 3120,
-      fridaymeetingId: 131,
-      awardcategoryId: 51,
+      awardId: 505,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
@@ -276,8 +309,7 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 214,
       personId: 3133,
-      fridaymeetingId: 131,
-      awardcategoryId: 52,
+      awardId: 506,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
@@ -286,32 +318,28 @@ exports.seed = function(knex, Promise) {
     knex('nominations').insert({
       id: 215,
       personId: 3132,
-      fridaymeetingId: 131,
-      awardcategoryId: 53,
+      awardId: 507,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
     knex('nominations').insert({
       id: 216,
       personId: 3131,
-      fridaymeetingId: 131,
-      awardcategoryId: 53,
+      awardId: 507,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: true
     }),
     knex('nominations').insert({
       id: 217,
       personId: 3130,
-      fridaymeetingId: 131,
-      awardcategoryId: 53,
+      awardId: 507,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),
     knex('nominations').insert({
       id: 218,
       personId: 3129,
-      fridaymeetingId: 131,
-      awardcategoryId: 53,
+      awardId: 507,
       description: 'Ex auditu at minuta angeli in si. Percepturi communibus indefinite quo hic eae dubitandum aliquandiu. Sum pati novi nunc tot uti meum. Ipsarum proprie impetus iis assumam probari age eos exiguum. Ex assideo haberet ea necesse enatare at quaeque nostras.',
       winner: false
     }),

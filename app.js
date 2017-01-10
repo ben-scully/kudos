@@ -7,16 +7,6 @@ var bodyParser = require('body-parser');
 var hbs = require('hbs');
 var dateformat = require('dateformat')
 
-var index = require('./routes/index');
-var fridaymeetings = require('./routes/fridaymeetings');
-// var nominations = require('./routes/nominations')(knex);
-//
-// var awardcategorys = require('./routes/awardcategorys')(knex);
-// var locations = require('./routes/locations')(knex);
-// var persons = require('./routes/persons')(knex);
-//
-// var admins = require('./routes/admins')(knex);
-
 var app = express();
 
 // view engine setup
@@ -37,15 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/fridaymeetings', fridaymeetings);
-// app.use('/nominations', nominations);
-//
-// app.use('/awardcategorys', awardcategorys);
-// app.use('/locations', locations);
-// app.use('/persons', persons);
-//
-// app.use('/admins', admins);
+require('./routes/routeMaster')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Top 10 Nominations by Location - {{nomination_index_table.from}} -> {{nomination_index_table.to}}</div>
+  <div class="panel-heading">Top 10 Nominations by Location - {{leaderboard_show_table.from}} -> {{leaderboard_show_table.to}}</div>
   <div class="panel-body">
     <p>...</p>
   </div>
@@ -15,7 +15,7 @@
     <th>Above & Beyonds</th>
   </thead>
 
-  {{#each nomination_index_table.locations }}
+  {{#each leaderboard_show_table.locations }}
     <tr>
       <td>{{location}}</td>
       <td>{{total}}</td>

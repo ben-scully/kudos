@@ -5,16 +5,28 @@
     </div>
   </div>
 
-  <div class="row">
+  {{#each awards }}
+    {{#if (openingRow @index) }}
+      <div class="row">
+    {{/if}}
 
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="panel panel-default">
 
         <div class="panel-heading">
-          <p>{{awardcategory.awardcategory}}  -  {{awardcategory.description}}</p>
+          <p>{{awardcategory}}  -  {{description}}</p>
         </div>
         <div class="panel-body">
           <p>Nominations:</p>
+
+          <a href="/awards/{{id}}">
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+          </a>
+
+          <a href="/nominations/new?awardId={{id}}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </a>
+
         </div>
 
         <ul class="list-group">
@@ -22,7 +34,6 @@
             <li class="person list-group-item">
               <img height="50px" src="https://img.clipartfest.com/fd7d1ac3605a7cd2954a6ea29a9c88cc_business-person-cartoon-business-person-clipart_326-425.jpeg" alt="">
               <p>{{name}}</p>
-              <p>{{description}}</p>
               {{#if winner}}
                 <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
               {{else}}
@@ -39,5 +50,9 @@
       </div>
     </div>
 
-  </div>
+    {{#if (closingRow @index) }}
+      </div>
+    {{/if}}
+  {{/each}}
+
 </div>

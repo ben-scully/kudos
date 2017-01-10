@@ -1,27 +1,27 @@
-var knexConfig = require('../knexfile.js')
-var knex = require('knex')(knexConfig["development"])
 
-module.exports = {
+module.exports = knex => {
+  return {
 
-  findAll: () => {
-    return knex('locations').select()
-  },
+    findAll: () => {
+      return knex('locations').select()
+    },
 
-  findById: id => {
-    return knex('locations').select().where({ id: id})
-  },
+    findById: id => {
+      return knex('locations').select().where({ id: id})
+    },
 
-  create: createObj => {
-    return knex('locations').insert(createObj)
-  },
+    create: createObj => {
+      return knex('locations').insert(createObj)
+    },
 
-  update: updateObj => {
-    return knex('locations')
-      .where({ id: updateObj.id })
-      .update({
-        name: updateObj.name,
-        description: updateObj.description
-      })
+    update: updateObj => {
+      return knex('locations')
+        .where({ id: updateObj.id })
+        .update({
+          name: updateObj.name,
+          description: updateObj.description
+        })
+    }
+
   }
-
 }

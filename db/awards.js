@@ -3,24 +3,29 @@ module.exports = knex => {
   return {
 
 
+    findAll: () => {
+      return knex('awards').select()
+    },
+
+
     findById: id => {
 
       return Promise.all([
 
         knex('fridaymeetings')
+          .join('awards', 'awards.fridaymeetingId', 'fridaymeetings.id')
           .join('locations', 'locations.id', 'fridaymeetings.locationId')
           .join('weeks', 'weeks.id', 'fridaymeetings.weekId')
-          .where({ 'fridaymeetings.id': id })
+          .where({ 'awards.id': id })
+          .limit(1)
           .select(
-            'locations.id as locationId',
             'locations.name as location',
-            'weeks.id as weekId',
             'weeks.date as date'
           ),
 
         knex('awards')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .where({ 'awards.fridaymeetingId': id })
+          .where({ 'awards.id': id })
           .select(
             'awards.id as id',
             'awardcategorys.name as awardcategory',
@@ -33,15 +38,29 @@ module.exports = knex => {
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
           .join('fridaymeetings', 'fridaymeetings.id', 'awards.fridaymeetingId')
           .join('weeks', 'weeks.id', 'fridaymeetings.weekId')
-          .where({ 'awards.fridaymeetingId': id })
+          .where({ 'awards.id': id })
           .select(
-            'persons.name as name',
+            'awards.id as awardId',
             'nominations.winner as winner',
-            'weeks.date as date',
-            'awards.id as awardId'
+            'nominations.id as id',
+            'persons.name as name',
+            'weeks.date as date'
           )
 
-      ])
+        ])
+    },
+
+
+    create: createObj => {
+      return knex('awards').insert(createObj)
+    },
+
+
+    update: updateObj => {
+      return knex('awards')
+        .where({ id: updateObj.id })
+        .update({
+        })
     }
 
 

@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Friday Meeting  -  {{location}}  -  {{dateformat date}}</h2>
+    </div>
+  </div>
+
+  {{#each awardcategorys }}
+    {{#if (openingRow @index) }}
+      <div class="row">
+    {{/if}}
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <p>{{awardcategory}}  -  {{description}}</p>
+        </div>
+        <div class="panel-body">
+          <p>Nominations:</p>
+
+          <a href="/fridaymeetings/oneaward/?locationId={{../locationId}}&weekId={{../weekId}}&awardcategoryId={{awardcategoryId}}">
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+          </a>
+
+          <a href="/fridaymeetings/oneaward/new?locationId={{../locationId}}&weekId={{../weekId}}&awardcategoryId={{awardcategoryId}}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </a>
+
+        </div>
+
+        <ul class="list-group">
+          {{#each nominations }}
+            <li class="person list-group-item">
+              <img height="50px" src="https://img.clipartfest.com/fd7d1ac3605a7cd2954a6ea29a9c88cc_business-person-cartoon-business-person-clipart_326-425.jpeg" alt="">
+              <p>{{name}}</p>
+              {{#if winner}}
+                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+              {{else}}
+                {{#if (pastDate date)}}
+                  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                {{else}}
+                  <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                {{/if}}
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+
+      </div>
+    </div>
+
+    {{#if (closingRow @index) }}
+      </div>
+    {{/if}}
+  {{/each}}
+
+</div>

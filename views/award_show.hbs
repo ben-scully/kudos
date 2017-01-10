@@ -5,16 +5,13 @@
     </div>
   </div>
 
-  {{#each awardcategorys }}
-    {{#if (openingRow @index) }}
-      <div class="row">
-    {{/if}}
+  <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="panel panel-default">
 
         <div class="panel-heading">
-          <p>{{awardcategory}}  -  {{description}}</p>
+          <p>{{award.awardcategory}}  -  {{award.description}}</p>
         </div>
         <div class="panel-body">
           <p>Nominations:</p>
@@ -24,7 +21,10 @@
           {{#each nominations }}
             <li class="person list-group-item">
               <img height="50px" src="https://img.clipartfest.com/fd7d1ac3605a7cd2954a6ea29a9c88cc_business-person-cartoon-business-person-clipart_326-425.jpeg" alt="">
-              <p>{{name}}</p>
+              <a href="/nominations/{{id}}">
+                {{name}}
+              </a>
+              <p>{{description}}</p>
               {{#if winner}}
                 <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
               {{else}}
@@ -41,9 +41,5 @@
       </div>
     </div>
 
-    {{#if (closingRow @index) }}
-      </div>
-    {{/if}}
-  {{/each}}
-
+  </div>
 </div>

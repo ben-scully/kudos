@@ -13,15 +13,15 @@
     <label for="weekId">Week</label>
     <select class="form-control" name="weekId">
       {{#each nomination_new_form.weeks}}
-        <option value="{{id}}">{{date}}</option>
+        <option value="{{id}}">{{dateformat date}}</option>
       {{/each}}
     </select>
   </div>
 
   <div class="form-group">
-    <label for="awardcategoryId">Award Category</label>
+    <label for="awardcategoryId">Award</label>
     <select class="form-control" name="awardcategoryId">
-      {{#each nomination_new_form.awardcategorys}}
+      {{#each nomination_new_form.awards}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>

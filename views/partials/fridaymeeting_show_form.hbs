@@ -1,4 +1,4 @@
-<form action="/fridaymeetings/allawards/" method="get">
+<form action="/fridaymeetings/calculateid" method="get">
 
   <div class="form-group">
     <label for="locationId">Location</label>
@@ -13,7 +13,7 @@
     <label for="weekId">Week</label>
     <select class="form-control" name="weekId">
       {{#each fridaymeeting_show_form.weeks}}
-        <option value="{{id}}">{{date}}</option>
+        <option value="{{id}}">{{dateformat date}}</option>
       {{/each}}
     </select>
   </div>
