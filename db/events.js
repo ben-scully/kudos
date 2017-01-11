@@ -2,9 +2,19 @@
 module.exports = knex => {
   return {
 
-
-    findAll: () => {
-      return knex('awards').select()
+    findByLocationDate: filterObj => {
+      return knex('events')
+        .join('locations', 'locations.id', 'events.locationId')
+        .where({ 'events.locationId': filterObj.locationId })
+        .andWhere('events.start', '<=', filterObj.date)
+        .andWhere('events.end', '>=', filterObj.date)
+        .select(
+          'events.id as id',
+          'events.name as name',
+          'events.start as start',
+          'events.end as end',
+          'locations.name as location'
+        )
     },
 
 
@@ -13,11 +23,10 @@ module.exports = knex => {
       return Promise.all([
 
         knex('events')
-          .join('awards', 'awards.eventId', 'events.id')
           .join('locations', 'locations.id', 'events.locationId')
-          .where({ 'awards.id': id })
-          .limit(1)
+          .where({ 'events.id': id })
           .select(
+            'locations.id as locationId',
             'locations.name as location',
             'events.end as enddate',
             'events.start as startdate'
@@ -25,7 +34,7 @@ module.exports = knex => {
 
         knex('awards')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .where({ 'awards.id': id })
+          .where({ 'awards.eventId': id })
           .select(
             'awards.id as id',
             'awardcategorys.name as awardcategory',
@@ -37,30 +46,16 @@ module.exports = knex => {
           .join('persons', 'persons.id', 'nominations.personId')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
           .join('events', 'events.id', 'awards.eventId')
-          .where({ 'awards.id': id })
+          .where({ 'awards.eventId': id })
           .select(
-            'awards.id as awardId',
-            'nominations.winner as winner',
-            'nominations.id as id',
             'persons.name as name',
+            'nominations.winner as winner',
+            'awards.id as awardId',
             'events.end as enddate',
             'events.start as startdate'
           )
 
-        ])
-    },
-
-
-    create: createObj => {
-      return knex('awards').insert(createObj)
-    },
-
-
-    update: updateObj => {
-      return knex('awards')
-        .where({ id: updateObj.id })
-        .update({
-        })
+      ])
     }
 
 

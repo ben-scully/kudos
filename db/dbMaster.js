@@ -5,8 +5,9 @@ var awardcategorys = require('./awardcategorys')(knex)
 var persons = require('./persons')(knex)
 var nominations = require('./nominations')(knex)
 var awards = require('./awards')(knex)
-var fridaymeetings = require('./fridaymeetings')(knex)
+var events = require('./events')(knex)
 var indexs = require('./indexs')(knex)
+
 
 module.exports = {
   locations: locations,
@@ -14,6 +15,6 @@ module.exports = {
   persons: persons,
   nominations: nominations,
   awards: awards,
-  fridaymeetings: fridaymeetings,
+  events: events,
   indexs: indexs
 }

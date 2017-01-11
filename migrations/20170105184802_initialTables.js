@@ -10,11 +10,6 @@ exports.up = function(knex, Promise) {
       table.string('description').nullable()
     }),
 
-    knex.schema.createTableIfNotExists('weeks', table => {
-      table.increments('id').primary()
-      table.date('date').notNullable()
-    }),
-
     knex.schema.createTableIfNotExists('awardcategorys', table => {
       table.increments('id').primary()
       table.string('name').notNullable()
@@ -27,30 +22,29 @@ exports.up = function(knex, Promise) {
       table.string('description').nullable()
     }),
 
-    knex.schema.createTableIfNotExists('fridaymeetings', table => {
+    knex.schema.createTableIfNotExists('events', table => {
       table.increments('id').primary()
+      table.string('name').notNullable()
+      table.string('description')
+      table.dateTime('start').notNullable()
+      table.dateTime('end').notNullable()
       table.integer('locationId').notNullable()
       table.foreign('locationId')
         .references('id')
         .inTable('locations')
-      table.integer('weekId').notNullable()
-      table.foreign('weekId')
-        .references('id')
-        .inTable('weeks')
-      table.unique(['locationId', 'weekId'])
     }),
 
     knex.schema.createTableIfNotExists('awards', table => {
       table.increments('id').primary()
-      table.integer('fridaymeetingId').notNullable()
-      table.foreign('fridaymeetingId')
+      table.integer('eventId').notNullable()
+      table.foreign('eventId')
         .references('id')
-        .inTable('fridaymeetings')
+        .inTable('events')
       table.integer('awardcategoryId').notNullable()
       table.foreign('awardcategoryId')
         .references('id')
         .inTable('awardcategorys')
-      table.unique(['fridaymeetingId', 'awardcategoryId'])
+      table.unique(['eventId', 'awardcategoryId'])
     }),
 
     knex.schema.createTableIfNotExists('nominations', table => {
@@ -68,17 +62,17 @@ exports.up = function(knex, Promise) {
       table.unique(['awardId', 'personId'])
     }),
 
-    knex.schema.createTableIfNotExists('fridaymeetings_awardcategorys', table => {
+    knex.schema.createTableIfNotExists('events_awardcategorys', table => {
       table.increments('id').primary()
-      table.integer('fridaymeetingId').notNullable()
-      table.foreign('fridaymeetingId')
+      table.integer('eventId').notNullable()
+      table.foreign('eventId')
         .references('id')
-        .inTable('fridaymeetings')
+        .inTable('events')
       table.integer('awardcategoryId').notNullable()
       table.foreign('awardcategoryId')
         .references('id')
         .inTable('awardcategorys')
-      table.unique(['fridaymeetingId', 'awardcategoryId'])
+      table.unique(['eventId', 'awardcategoryId'])
     })
 
   ])
@@ -112,12 +106,12 @@ exports.down = function(knex, Promise) {
       console.log('awards Table was dropped')
     }),
 
-    knex.schema.dropTableIfExists('fridaymeetings_awardcategorys').then( () => {
-      console.log('fridaymeetings_awardcategorys Table was dropped')
+    knex.schema.dropTableIfExists('events_awardcategorys').then( () => {
+      console.log('events_awardcategorys Table was dropped')
     }),
 
-    knex.schema.dropTableIfExists('fridaymeetings').then( () => {
-      console.log('fridaymeetings Table was dropped')
+    knex.schema.dropTableIfExists('events').then( () => {
+      console.log('events Table was dropped')
     })
 
   ])

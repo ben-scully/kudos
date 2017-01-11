@@ -7,15 +7,14 @@ module.exports = function (knex) {
       return Promise.all([
 
         knex('locations').select(),
-        knex('weeks').select(),
+        knex('locations').select(), //  temporary replace weeks
         knex('awardcategorys').select(),
         knex('persons').select(),
         knex('nominations')
-          .join('fridaymeetings', 'fridaymeetings.id', 'awards.fridaymeetingId')
+          .join('events', 'events.id', 'awards.eventId')
           .join('awards', 'awards.id', 'nominations.awardId')
-          .join('locations', 'locations.id', 'fridaymeetings.locationId')
-          .join('weeks', 'weeks.id', 'fridaymeetings.weekId')
-          .where({ 'fridaymeetings.id': 130}) // latest fridaymeeting id
+          .join('locations', 'locations.id', 'events.locationId')
+          .where({ 'events.id': 130}) // latest event id
           .groupBy('locations.id')
           .count('locations.id as total')
           .select(

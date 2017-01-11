@@ -14,7 +14,7 @@ module.exports = db => {
         var jsonObj = buildAllAwardsObj(data)
         console.log('GET /:id JSON:\n', jsonObj)
 
-        res.render('fridaymeeting_show', jsonObj)
+        res.render('event_show', jsonObj)
       })
       .catch( error => { console.log(error) })
   });
@@ -47,29 +47,6 @@ module.exports = db => {
       awards: arr
     }
   }
-
-  // Show new
-  router.get('/new', function(req, res, next) {
-    console.log('GET /new:\n')
-
-    res.render('fridaymeeting_new')
-  });
-
-
-  // Show Edit one
-  router.get('/:id/edit', function(req, res, next) {
-    console.log('GET /:id/edit PARAMS:\n', req.params)
-
-    res.render('fridaymeeting_edit')
-  });
-
-
-  // Edit one
-  router.post('/', function(req, res, next) {
-    console.log('POST / BODY:\n')
-
-    res.redirect('zzzzzz')
-  });
 
 
   return router;

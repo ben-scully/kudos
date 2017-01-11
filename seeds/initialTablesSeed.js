@@ -58,27 +58,6 @@ exports.seed = function(knex, Promise) {
     }),
 
 
-    // 1000-2999
-    knex('weeks').del(),
-
-    knex('weeks').insert({
-      id: 1052,
-      date: '2017-01-06'
-    }),
-    knex('weeks').insert({
-      id: 1053,
-      date: '2017-01-13'
-    }),
-    knex('weeks').insert({
-      id: 1054,
-      date: '2017-01-20'
-    }),
-    knex('weeks').insert({
-      id: 1055,
-      date: '2017-01-27'
-    }),
-
-
     // 3000-5999
     knex('persons').del(),
 
@@ -137,19 +116,38 @@ exports.seed = function(knex, Promise) {
 
 
     // 100-199
-    knex('fridaymeetings').del(),
+    knex('events').del(),
 
-    knex('fridaymeetings').insert({
+    knex('events').insert({
       id: 130,
+      name: 'Friday Meeting',
       locationId: 1,
-      weekId: 1053
+      start: '2017-01-07',
+      end: '2017-01-13'
     }),
 
-
-    knex('fridaymeetings').insert({
-      id: 134,
+    knex('events').insert({
+      id: 131,
+      name: 'Friday Meeting',
       locationId: 2,
-      weekId: 1054
+      start: '2017-01-14',
+      end: '2017-01-20'
+    }),
+
+    knex('events').insert({
+      id: 132,
+      name: 'Friday Meeting',
+      locationId: 2,
+      start: '2017-01-07',
+      end: '2017-01-13'
+    }),
+
+    knex('events').insert({
+      id: 133,
+      name: 'Yellow Awards',
+      locationId: 2,
+      start: '2017-01-01',
+      end: '2017-07-01'
     }),
 
 
@@ -158,43 +156,43 @@ exports.seed = function(knex, Promise) {
 
     knex('awards').insert({
       id: 500,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 50
     }),
     knex('awards').insert({
       id: 501,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 51
     }),
     knex('awards').insert({
       id: 502,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 52
     }),
     knex('awards').insert({
       id: 503,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 53
     }),
 
     knex('awards').insert({
       id: 504,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 50
     }),
     knex('awards').insert({
       id: 505,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 51
     }),
     knex('awards').insert({
       id: 506,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 52
     }),
     knex('awards').insert({
       id: 507,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 53
     }),
 
@@ -346,48 +344,48 @@ exports.seed = function(knex, Promise) {
 
 
     // 900-999
-    knex('fridaymeetings_awardcategorys').del(),
+    knex('events_awardcategorys').del(),
 
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 900,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 50
     }),
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 901,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 51
     }),
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 902,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 52
     }),
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 903,
-      fridaymeetingId: 130,
+      eventId: 130,
       awardcategoryId: 53
     }),
 
 
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 904,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 50
     }),
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 905,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 51
     }),
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 906,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 52
     }),
-    knex('fridaymeetings_awardcategorys').insert({
+    knex('events_awardcategorys').insert({
       id: 907,
-      fridaymeetingId: 131,
+      eventId: 131,
       awardcategoryId: 53
     })
 
