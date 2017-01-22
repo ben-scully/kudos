@@ -4,9 +4,9 @@ module.exports = knex => {
 
     findAll: () => {
       return Promise.all([
-        knex('locations').select(),
+        knex('offices').select(),
         knex('awardcategorys').select(),
-        knex('persons').select()
+        knex('staffs').select()
       ])
     }
 

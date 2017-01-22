@@ -2,17 +2,21 @@
 module.exports = knex => {
   return {
 
+    findByIdBasic: id => {
+      return knex('nominations').where({ id: id }).select()
+    },
+    
     nominationForm: () => {
       return Promise.all([
-        knex('persons').select(),
-        knex('locations').select(),
-        knex('locations').select(), // temporary
+        knex('staffs').select(),
+        knex('offices').select(),
+        knex('offices').select(), // temporary
         knex('awards')
-          .join('locations', 'locations.id', 'awards.locationId')
+          .join('offices', 'offices.id', 'awards.officeId')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
           .select(
             'awards.id as id',
-            'locations.name as location',
+            'offices.name as office',
             'awardcategorys.name as awardcategory'
           )
       ])
@@ -21,15 +25,15 @@ module.exports = knex => {
     findAll: () => {
       return knex('nominations')
         .join('awards', 'awards.id', 'nominations.awardId')
-        .join('locations', 'locations.id', 'awards.locationId')
+        .join('offices', 'offices.id', 'awards.officeId')
         .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('persons', 'persons.id', 'nominations.personId')
+        .join('staffs', 'staffs.id', 'nominations.staffId')
         .select(
           'nominations.id as id',
           'awards.id as awardId',
-          'locations.name as location',
+          'offices.name as office',
           'awardcategorys.name as awardcategory',
-          'persons.name as person',
+          'staffs.name as staff',
           'nominations.winner as winner'
         )
     },
@@ -38,29 +42,29 @@ module.exports = knex => {
       return knex('nominations')
         .where(filterObj)
         .join('awards', 'awards.id', 'nominations.awardId')
-        .join('locations', 'locations.id', 'awards.locationId')
+        .join('offices', 'offices.id', 'awards.officeId')
         .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('persons', 'persons.id', 'nominations.personId')
+        .join('staffs', 'staffs.id', 'nominations.staffId')
         .select(
           'nominations.id as id',
           'awards.id as awardId',
-          'locations.name as location',
+          'offices.name as office',
           'awardcategorys.name as awardcategory',
-          'persons.name as person',
+          'staffs.name as staff',
           'nominations.winner as winner'
         )
     },
 
     findAllOptions: () => {
       return Promise.all([
-        knex('persons').select(),
-        knex('locations').select(),
+        knex('staffs').select(),
+        knex('offices').select(),
         knex('awards')
-          .join('locations', 'locations.id', 'awards.locationId')
+          .join('offices', 'offices.id', 'awards.officeId')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
           .select(
             'awards.id as id',
-            'locations.name as location',
+            'offices.name as office',
             'awardcategorys.name as awardcategory'
           )
       ])
@@ -72,17 +76,17 @@ module.exports = knex => {
       return knex('nominations')
         .join('events', 'events.id', 'awards.eventId')
         .join('awards', 'awards.id', 'nominations.awardId')
-        .join('locations', 'locations.id', 'events.locationId')
+        .join('offices', 'offices.id', 'events.officeId')
         .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('persons', 'persons.id', 'nominations.personId')
+        .join('staffs', 'staffs.id', 'nominations.staffId')
         .where({ 'nominations.id': id })
         .select(
           'events.end as enddate',
           'events.start as startdate',
-          'locations.name as location',
+          'offices.name as office',
           'awardcategorys.name as awardcategory',
           'awardcategorys.description as awardcategoryDescription',
-          'persons.name as name',
+          'staffs.name as name',
           'nominations.description as nominationDescription',
           'nominations.winner as winner'
         )
@@ -94,25 +98,25 @@ module.exports = knex => {
         knex('nominations')
           .where({ 'nominations.id': id})
           .join('awards', 'awards.id', 'nominations.awardId')
-          .join('locations', 'locations.id', 'awards.locationId')
+          .join('offices', 'offices.id', 'awards.officeId')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .join('persons', 'persons.id', 'nominations.personId')
+          .join('staffs', 'staffs.id', 'nominations.staffId')
           .select(
             'nominations.id as id',
             'awards.id as awardId',
-            'locations.name as location',
+            'offices.name as office',
             'awardcategorys.name as awardcategory',
-            'persons.name as person',
+            'staffs.name as staff',
             'nominations.description as description',
             'nominations.winner as winner'
           ),
-        knex('persons').select(),
+        knex('staffs').select(),
         knex('awards')
-          .join('locations', 'locations.id', 'awards.locationId')
+          .join('offices', 'offices.id', 'awards.officeId')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
           .select(
             'awards.id as id',
-            'locations.name as location',
+            'offices.name as office',
             'awardcategorys.name as awardcategory'
           )
       ])
@@ -122,15 +126,15 @@ module.exports = knex => {
       return knex('nominations')
         .where(filterObj)
         .join('awards', 'awards.id', 'nominations.awardId')
-        .join('locations', 'locations.id', 'awards.locationId')
+        .join('offices', 'offices.id', 'awards.officeId')
         .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('persons', 'persons.id', 'nominations.personId')
+        .join('staffs', 'staffs.id', 'nominations.staffId')
         .select(
           'nominations.id as id',
           'awards.id as awardId',
-          'locations.name as location',
+          'offices.name as office',
           'awardcategorys.name as awardcategory',
-          'persons.name as person',
+          'staffs.name as staff',
           'nominations.winner as winner'
         )
     },
@@ -144,7 +148,7 @@ module.exports = knex => {
         .where({ id: updateObj.id })
         .update({
           awardId: updateObj.awardId,
-          personId: updateObj.personId,
+          staffId: updateObj.staffId,
           description: updateObj.description
         })
     },

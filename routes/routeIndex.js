@@ -1,24 +1,24 @@
-var dbs = require('../db/dbMaster')
+var dbs = require('../db/dbIndex')
 
-var locations = require('./locations')(dbs.locations)
+var offices = require('./offices')(dbs.offices)
 var awardcategorys = require('./awardcategorys')(dbs.awardcategorys)
-var persons = require('./persons')(dbs.persons)
+var staffs = require('./staffs')(dbs.staffs)
 var nominations = require('./nominations')(dbs.nominations)
 var awards = require('./awards')(dbs.awards)
 var events = require('./events')(dbs.events)
-var indexs = require('./indexs')(dbs.indexs)
+var homepage = require('./homepage')(dbs.homepage)
 var api = require('./api')(dbs)
 
 
 module.exports = app => {
 
-  app.use('/locations', locations)
+  app.use('/offices', offices)
   app.use('/awardcategorys', awardcategorys)
-  app.use('/persons', persons)
+  app.use('/staffs', staffs)
   app.use('/nominations', nominations)
   app.use('/awards', awards)
   app.use('/events', events)
-  app.use('/', indexs)
+  app.use('/', homepage)
   app.use('/api', api)
 
 }

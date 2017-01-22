@@ -3,11 +3,12 @@ var router = express.Router();
 
 module.exports = db => {
 
+
   // Show All
   router.get('/', function(req, res, next) {
     db.findAll()
       .then( data => {
-        res.render('location_index', { locations: data })
+        res.render('staff_index', { list: data })
       })
       .catch( error => { console.log(error) })
   });
@@ -15,7 +16,7 @@ module.exports = db => {
 
   // Show Create One
   router.get('/new', function(req, res, next) {
-    res.render('location_new')
+    res.render('staff_new')
   });
 
 
@@ -23,7 +24,7 @@ module.exports = db => {
   router.get('/:id', function(req, res, next) {
     db.findById(req.params.id)
       .then( data => {
-        res.render('location_show', data[0])
+        res.render('staff_show', data[0])
       })
       .catch( error => { console.log(error) })
   });
@@ -33,7 +34,7 @@ module.exports = db => {
   router.get('/:id/edit', function(req, res, next) {
     db.findById(req.params.id)
       .then( data => {
-        res.render('location_edit', data[0])
+        res.render('staff_edit', data[0])
       })
       .catch( error => { console.log(error) })
   });
@@ -42,13 +43,12 @@ module.exports = db => {
   // Create One
   router.post('/', function(req, res, next) {
     var createObj = {
-      name: req.body.name,
-      description: req.body.description
+      name: req.body.name
     }
 
     db.create(createObj)
       .then( data => {
-        res.redirect('/locations')
+        res.redirect('/staffs')
       })
       .catch( error => { console.log(error) })
   });
@@ -58,13 +58,12 @@ module.exports = db => {
   router.post('/:id/edit', function(req, res, next) {
     var updateObj = {
       id: req.params.id,
-      name: req.body.name,
-      description: req.body.description
+      name: req.body.name
     }
 
     db.update(updateObj)
       .then( data => {
-        res.redirect('/locations')
+        res.redirect('/staffs')
       })
       .catch( error => { console.log(error) })
   });

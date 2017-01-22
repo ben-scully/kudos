@@ -1,11 +1,25 @@
 <div class="container-fluid">
+
   <div class="row">
     <div class="col-md-12">
-      <h2>Friday Meeting  -  {{location}}  -  {{dateformat date}}</h2>
+
+      <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">
+          <a href="/events/{{eventId}}">{{eventName}}</a>
+        </li>
+      </ol>
+
     </div>
   </div>
 
-  {{#each awards }}
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{eventName}}  -  {{eventOfficeName}}  -  {{dateformat eventEnddate}}</h2>
+    </div>
+  </div>
+
+  {{#each eventAwards }}
     {{#if (openingRow @index) }}
       <div class="row">
     {{/if}}
@@ -14,38 +28,45 @@
       <div class="panel panel-default">
 
         <div class="panel-heading">
-          <p>{{awardcategory}}  -  {{description}}</p>
+          <a href="/events/{{../eventId}}/awards/{{awardId}}">
+            <p>
+              {{awardcategoryName}}  -  {{awardcategoryDescription}}
+            </p>
+          </a>
         </div>
-        <div class="panel-body">
+        <div class="panel-body event-award">
           <p>Nominations:</p>
-
-          <a href="/awards/{{id}}">
-            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+          <a href="/events/{{../eventId}}/awards/{{awardId}}/nominations/new">
+            <img src="/images/add.png" alt="Add Nomination">
           </a>
-
-          <a href="/nominations/new?awardId={{id}}">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </a>
-
         </div>
 
-        <ul class="list-group">
-          {{#each nominations }}
-            <li class="person list-group-item">
-              <img height="50px" src="https://img.clipartfest.com/fd7d1ac3605a7cd2954a6ea29a9c88cc_business-person-cartoon-business-person-clipart_326-425.jpeg" alt="">
-              <p>{{name}}</p>
-              {{#if winner}}
-                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-              {{else}}
-                {{#if (pastDate date)}}
-                  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                {{else}}
-                  <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                {{/if}}
-              {{/if}}
-            </li>
+        <div class="list-group">
+          {{#each awardNominations }}
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <div class="event-nomination nomination" data-nominationid="{{nominationId}}" data-nominationwinner="{{nominationWinner}}" data-eventenddate="{{../../eventEnddate}}">
+
+                  <div class="event-nominationContent">
+                    <img class="event-nominationProfilePic" src="/images/profile-pic.png" alt="Staff Profile Picture">
+
+                    <a href="/events/{{../../eventId}}/awards/{{../awardId}}/nominations/{{nominationId}}">
+                      <h4>{{staffName}}</h4>
+                    </a>
+                    <div class="event-nominationButtons">
+                      <img class="winner" style="display: none;" src="/images/tick.png" alt="Winner">
+                      <img class="loser" style="display: none;" src="/images/cross.png" alt="Loser">
+                      <img class="maybe" src="/images/waiting.png" alt="Waiting">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
           {{/each}}
-        </ul>
+        </div>
 
       </div>
     </div>

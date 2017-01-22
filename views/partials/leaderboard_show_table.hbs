@@ -1,13 +1,13 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Top 10 Nominations by Location - {{leaderboard_show_table.from}} -> {{leaderboard_show_table.to}}</div>
+  <div class="panel-heading">Top 10 Nominations by Office - {{leaderboard_show_table.from}} -> {{leaderboard_show_table.to}}</div>
   <div class="panel-body">
     <p>...</p>
   </div>
 
   <table class="table table-hover">
   <thead>
-    <th>Location</th>
+    <th>Office</th>
     <th>Total</th>
     <th>Harpers</th>
     <th>LooseWheels</th>
@@ -15,9 +15,9 @@
     <th>Above & Beyonds</th>
   </thead>
 
-  {{#each leaderboard_show_table.locations }}
+  {{#each leaderboard_show_table.offices }}
     <tr>
-      <td>{{location}}</td>
+      <td>{{office}}</td>
       <td>{{total}}</td>
       <td>{{harpers}}</td>
       <td>{{loosewheels}}</td>

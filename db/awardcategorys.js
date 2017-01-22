@@ -10,6 +10,18 @@ module.exports = knex => {
       return knex('awardcategorys').select().where({ id: id})
     },
 
+    findByEventId: eventId => {
+      return knex('events_awardcategorys')
+        .where({ 'events.id': eventId})
+        .join('events', 'events.id', 'events_awardcategorys.eventId')
+        .join('awardcategorys', 'awardcategorys.id', 'events_awardcategorys.awardcategoryId')
+        .select(
+          'awardcategorys.id as awardcategoryId',
+          'awardcategorys.name as awardcategoryName',
+          'awardcategorys.description as awardcategoryDescription'
+        )
+    },
+
     create: createObj => {
       return knex('awardcategorys').insert(createObj)
     },

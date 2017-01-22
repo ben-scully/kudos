@@ -6,19 +6,19 @@ module.exports = function (knex) {
 
       return Promise.all([
 
-        knex('locations').select(),
-        knex('locations').select(), //  temporary replace weeks
+        knex('offices').select(),
+        knex('offices').select(), //  temporary replace weeks
         knex('awardcategorys').select(),
-        knex('persons').select(),
+        knex('staffs').select(),
         knex('nominations')
           .join('events', 'events.id', 'awards.eventId')
           .join('awards', 'awards.id', 'nominations.awardId')
-          .join('locations', 'locations.id', 'events.locationId')
+          .join('offices', 'offices.id', 'events.officeId')
           .where({ 'events.id': 130}) // latest event id
-          .groupBy('locations.id')
-          .count('locations.id as total')
+          .groupBy('offices.id')
+          .count('offices.id as total')
           .select(
-            'locations.name as location'
+            'offices.name as office'
           )
 
       ])

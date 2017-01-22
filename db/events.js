@@ -2,60 +2,105 @@
 module.exports = knex => {
   return {
 
-    findByLocationDate: filterObj => {
+    findById: id => {
+      console.log('DB Events - findbyid:', id)
+
       return knex('events')
-        .join('locations', 'locations.id', 'events.locationId')
-        .where({ 'events.locationId': filterObj.locationId })
-        .andWhere('events.start', '<=', filterObj.date)
-        .andWhere('events.end', '>=', filterObj.date)
+        .where({ 'events.id': id })
+        .join('offices', 'offices.id', 'events.officeId')
+        .join('awards', 'awards.eventId', 'events.id')
+        .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
+        .join('nominations', 'nominations.awardId', 'awards.id')
+        .join('staffs', 'staffs.id', 'nominations.staffId')
         .select(
-          'events.id as id',
-          'events.name as name',
-          'events.start as start',
-          'events.end as end',
-          'locations.name as location'
+          'events.id as eventId',
+          'events.name as eventName',
+          'events.description as eventDescription',
+          'events.startdate as eventStartdate',
+          'events.enddate as eventEnddate',
+          'offices.id as eventOfficeId',
+          'offices.name as eventOfficeName',
+          'awards.id as awardId',
+          'awardcategorys.id as awardcategoryId',
+          'awardcategorys.name as awardcategoryName',
+          'awardcategorys.description as awardcategoryDescription',
+          'nominations.id as nominationId',
+          'nominations.description as nominationDescription',
+          'nominations.winner as nominationWinner',
+          'staffs.id as staffId',
+          'staffs.name as staffName'
+        )
+    },
+
+    findByIdEdit: id => {
+      console.log('DB Events - findByIdEdit:', id)
+
+      return knex('events')
+        .where({ 'events.id': id })
+        .join('offices', 'offices.id', 'events.officeId')
+        .join('events_awardcategorys', 'events_awardcategorys.eventId', 'events.id')
+        .join('awardcategorys', 'awardcategorys.id', 'events_awardcategorys.awardcategoryId')
+        .select(
+          'events.id as eventId',
+          'events.name as eventName',
+          'events.description as eventDescription',
+          'events.startdate as eventStartdate',
+          'events.enddate as eventEnddate',
+          'offices.id as eventOfficeId',
+          'offices.name as eventOfficeName',
+          'awardcategorys.id as awardcategoryId',
+          'awardcategorys.name as awardcategoryName',
+          'awardcategorys.description as awardcategoryDescription'
         )
     },
 
 
-    findById: id => {
+    findByOfficeDate: (officeId, date) => {
+      console.log('DB Events - findByOfficeDate:', officeId, date, new Date(date))
 
-      return Promise.all([
+      return knex('events')
+        .where('offices.id', officeId)
+        .andWhere('events.startdate', '<=', new Date(date))
+        .andWhere('events.enddate', '>=', new Date(date))
+        .join('offices', 'offices.id', 'events.officeId')
+        .select(
+          'events.id as eventId',
+          'events.name as eventName',
+          'events.description as eventDescription',
+          'offices.id as eventOfficeId',
+          'offices.name as eventOfficeName',
+          'events.startdate as eventStartdate',
+          'events.enddate as eventEnddate'
+        )
+    },
 
-        knex('events')
-          .join('locations', 'locations.id', 'events.locationId')
-          .where({ 'events.id': id })
-          .select(
-            'locations.id as locationId',
-            'locations.name as location',
-            'events.end as enddate',
-            'events.start as startdate'
-          ),
 
-        knex('awards')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .where({ 'awards.eventId': id })
-          .select(
-            'awards.id as id',
-            'awardcategorys.name as awardcategory',
-            'awardcategorys.description as description'
-          ),
+    create: createObj => {
+      console.log('DB Events - create:', createObj)
 
-        knex('nominations')
-          .join('awards', 'awards.id', 'nominations.awardId')
-          .join('persons', 'persons.id', 'nominations.personId')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .join('events', 'events.id', 'awards.eventId')
-          .where({ 'awards.eventId': id })
-          .select(
-            'persons.name as name',
-            'nominations.winner as winner',
-            'awards.id as awardId',
-            'events.end as enddate',
-            'events.start as startdate'
-          )
+      return knex('events').insert(createObj)
+    },
 
-      ])
+
+    createNomination: createObj => {
+      console.log('DB Events - createNomination:', createObj)
+
+      return knex('nominations').insert(createObj)
+    },
+
+
+    update: updateObj => {
+      console.log('DB Events - update:', updateObj)
+
+      return knex('events')
+        .where({ id: updateObj.id })
+        .update({
+          name: updateObj.name,
+          description: updateObj.description,
+          startdate: updateObj.startdate,
+          enddate: updateObj.enddate,
+          officeId: updateObj.officeId
+        })
     }
 
 

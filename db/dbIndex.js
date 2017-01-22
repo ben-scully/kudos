@@ -1,20 +1,20 @@
 var knex = require('./knexMaster')
 
-var locations = require('./locations')(knex)
+var offices = require('./offices')(knex)
 var awardcategorys = require('./awardcategorys')(knex)
-var persons = require('./persons')(knex)
+var staffs = require('./staffs')(knex)
 var nominations = require('./nominations')(knex)
 var awards = require('./awards')(knex)
 var events = require('./events')(knex)
-var indexs = require('./indexs')(knex)
+var homepage = require('./homepage')(knex)
 
 
 module.exports = {
-  locations: locations,
+  offices: offices,
   awardcategorys: awardcategorys,
-  persons: persons,
+  staffs: staffs,
   nominations: nominations,
   awards: awards,
   events: events,
-  indexs: indexs
+  homepage: homepage
 }

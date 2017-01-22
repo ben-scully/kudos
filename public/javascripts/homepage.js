@@ -7,7 +7,7 @@ $(function(){
 })
 
 function initEventSearch() {
-  initEventSearchLocation()
+  initEventSearchOffice()
   initEventSearchDate()
   initEventSearchEvent()
 }
@@ -17,34 +17,36 @@ function initEventSearch() {
 
 
 /**************************
-          LOCATION
+          OFFICE
 /**************************/
-function initEventSearchLocation() {
-  populateEventSearchLocation()
-  addListenerEventSearchLocation()
+function initEventSearchOffice() {
+  populateEventSearchOffice()
+  addListenerEventSearchOffice()
 }
 
-function populateEventSearchLocation() {
-  $.get( "/api/locations", function (data) {
-    var results =  data.map(function(item) {
+function populateEventSearchOffice() {
+  $.get( "/api/offices", function (data) {
+    var results = data.map(function(item) {
       return { id:item.id, text: item.name }
     })
 
-    console.log('Results Locations:\n', results)
+    console.log('Results Offices:')
+    if (results)
+      if (results.length > 2)
+        console.log(results[0], results[1], results[2])
 
-    $("#eventSearchLocation").select2({
-      minimumInputLength: 1,
+    $("#eventSearchOffice").select2({
       data: results,
-      placeholder: 'Select an Location',
+      allowClear: true
     })
   })
 }
 
-function addListenerEventSearchLocation() {
-  $("#eventSearchLocation").on('change', function() {
+function addListenerEventSearchOffice() {
+  $("#eventSearchOffice").on('change', function() {
     var value = $(this).val()
 
-    if (!value) {
+    if (!value || value < 0) {
       disableClearEventSearchDate()
       disableClearEventSearchEvent()
       return
@@ -63,17 +65,17 @@ function addListenerEventSearchLocation() {
             DATE
 /**************************/
 function initEventSearchDate() {
-  $('#eventSearchDate').datepicker({
-    autoclose: true,
-    format: {
-      toDisplay: function (date, format, language) {
-        return formatDate(date)
-      },
-      toValue: function (date, format, language) {
-        return formatDate(date)
-      }
-    }
-  })
+  // $('#eventSearchDate').datepicker({
+  //   autoclose: true,
+  //   format: {
+  //     toDisplay: function (date, format, language) {
+  //       return formatDate(date)
+  //     },
+  //     toValue: function (date, format, language) {
+  //       return formatDate(date)
+  //     }
+  //   }
+  // })
   addListenerEventSearchDate()
 }
 
@@ -81,7 +83,7 @@ function addListenerEventSearchDate() {
   $("#eventSearchDate").on('change', function() {
     var value = $(this).val()
 
-    if (!value) {
+    if (!value || value < 0) {
       disableClearEventSearchEvent()
       return
     }
@@ -112,21 +114,23 @@ function initEventSearchEvent() {
   addListenerEventSearchEvent()
 }
 
-function updateEventSearchEvent(locationId, date) {
-  $.get( "/api/events", { locationId:locationId, date:date })
+function updateEventSearchEvent(officeId, date) {
+  $.get( "/api/events", { officeId:officeId, date:date })
     .done(function (data) {
       var results =  data.map(function(item) {
         return {
-          id:item.id,
-          text: item.name + ' ' + item.start + ' - ' + item.end }
+          id: item.eventId,
+          text: item.eventName + ' ' + formatDate(item.eventStartdate) + ' - ' + formatDate(item.eventEnddate) }
       })
 
-      console.log('Results Events:\n', results)
+      console.log('Results Events:')
+      if (results)
+        if (results.length > 2)
+          console.log(results[0], results[1], results[2])
 
       $("#eventSearchEvent").select2({
-        minimumInputLength: 1,
         data: results,
-        placeholder: { id:-1, text: 'Select an Event' },
+        allowClear: true
       })
     })
 }
@@ -153,9 +157,9 @@ function enableClearEventSearchEvent() {
   $('#eventSearchEvent').attr('disabled', false);
   $('#eventSearchEvent').val('')
 
-  var locationId = $('#eventSearchLocation').val()
+  var officeId = $('#eventSearchOffice').val()
   var date = $('#eventSearchDate').val()
-  updateEventSearchEvent(locationId, date)
+  updateEventSearchEvent(officeId, date)
 }
 
 function disableEventSearchSubmit() {

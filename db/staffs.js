@@ -3,19 +3,19 @@ module.exports = knex => {
   return {
 
     findAll: () => {
-      return knex('persons').select()
+      return knex('staffs').select()
     },
 
     findById: id => {
-      return knex('persons').select().where({ id: id})
+      return knex('staffs').select().where({ id: id})
     },
 
     create: createObj => {
-      return knex('persons').insert(createObj)
+      return knex('staffs').insert(createObj)
     },
 
     update: updateObj => {
-      return knex('persons')
+      return knex('staffs')
         .where({ id: updateObj.id })
         .update({
           name: updateObj.name,

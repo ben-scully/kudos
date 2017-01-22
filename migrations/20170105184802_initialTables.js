@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
 
   return Promise.all([
 
-    knex.schema.createTableIfNotExists('locations', table => {
+    knex.schema.createTableIfNotExists('offices', table => {
       table.increments('id').primary()
       table.string('name').notNullable()
       table.string('description').nullable()
@@ -16,22 +16,23 @@ exports.up = function(knex, Promise) {
       table.string('description').nullable()
     }),
 
-    knex.schema.createTableIfNotExists('persons', table => {
+    knex.schema.createTableIfNotExists('staffs', table => {
       table.increments('id').primary()
       table.string('name').notNullable()
-      table.string('description').nullable()
+      table.string('objectGuid').nullable()
+      table.string('samAccountName').nullable()
     }),
 
     knex.schema.createTableIfNotExists('events', table => {
       table.increments('id').primary()
       table.string('name').notNullable()
       table.string('description')
-      table.dateTime('start').notNullable()
-      table.dateTime('end').notNullable()
-      table.integer('locationId').notNullable()
-      table.foreign('locationId')
+      table.dateTime('startdate').notNullable()
+      table.dateTime('enddate').notNullable()
+      table.integer('officeId').notNullable()
+      table.foreign('officeId')
         .references('id')
-        .inTable('locations')
+        .inTable('offices')
     }),
 
     knex.schema.createTableIfNotExists('awards', table => {
@@ -53,13 +54,13 @@ exports.up = function(knex, Promise) {
       table.foreign('awardId')
         .references('id')
         .inTable('awards')
-      table.integer('personId').notNullable()
-      table.foreign('personId')
+      table.integer('staffId').notNullable()
+      table.foreign('staffId')
         .references('id')
-        .inTable('persons')
+        .inTable('staffs')
       table.string('description').notNullable()
       table.boolean('winner').defaultTo(false)
-      table.unique(['awardId', 'personId'])
+      table.unique(['awardId', 'staffId'])
     }),
 
     knex.schema.createTableIfNotExists('events_awardcategorys', table => {
@@ -86,12 +87,12 @@ exports.down = function(knex, Promise) {
       console.log('weeks Table was dropped')
     }),
 
-    knex.schema.dropTableIfExists('persons').then( () => {
-      console.log('persons Table was dropped')
+    knex.schema.dropTableIfExists('staffs').then( () => {
+      console.log('staffs Table was dropped')
     }),
 
-    knex.schema.dropTableIfExists('locations').then( () => {
-      console.log('locations Table was dropped')
+    knex.schema.dropTableIfExists('offices').then( () => {
+      console.log('offices Table was dropped')
     }),
 
     knex.schema.dropTableIfExists('awardcategorys').then( () => {

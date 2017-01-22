@@ -1,9 +1,9 @@
 <form action="/nominations" method="post">
 
   <div class="form-group">
-    <label for="locationId">Location</label>
-    <select class="form-control" name="locationId">
-      {{#each nomination_new_form.locations}}
+    <label for="officeId">Office</label>
+    <select class="form-control" name="officeId">
+      {{#each nomination_new_form.offices}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
@@ -28,9 +28,9 @@
   </div>
 
   <div class="form-group">
-    <label for="personId">Person</label>
-    <select class="form-control" name="personId">
-      {{#each nomination_new_form.persons}}
+    <label for="staffId">Staff</label>
+    <select class="form-control" name="staffId">
+      {{#each nomination_new_form.staffs}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
@@ -38,7 +38,7 @@
 
   <div class="form-group">
     <label for="description">Description</label>
-    <input type="text" class="form-control" name="description" placeholder="Description">
+    <textarea class="form-control" name="description" rows="4"></textarea>
   </div>
 
   <button type="submit" class="btn btn-default">Submit</button>

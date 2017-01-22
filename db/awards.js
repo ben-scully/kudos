@@ -14,11 +14,11 @@ module.exports = knex => {
 
         knex('events')
           .join('awards', 'awards.eventId', 'events.id')
-          .join('locations', 'locations.id', 'events.locationId')
+          .join('offices', 'offices.id', 'events.officeId')
           .where({ 'awards.id': id })
           .limit(1)
           .select(
-            'locations.name as location',
+            'offices.name as office',
             'events.end as enddate',
             'events.start as startdate'
           ),
@@ -34,7 +34,7 @@ module.exports = knex => {
 
         knex('nominations')
           .join('awards', 'awards.id', 'nominations.awardId')
-          .join('persons', 'persons.id', 'nominations.personId')
+          .join('staffs', 'staffs.id', 'nominations.staffId')
           .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
           .join('events', 'events.id', 'awards.eventId')
           .where({ 'awards.id': id })
@@ -42,7 +42,7 @@ module.exports = knex => {
             'awards.id as awardId',
             'nominations.winner as winner',
             'nominations.id as id',
-            'persons.name as name',
+            'staffs.name as name',
             'events.end as enddate',
             'events.start as startdate'
           )

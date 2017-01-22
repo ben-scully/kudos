@@ -15,7 +15,7 @@ module.exports = db => {
       .then( data => {
         console.log('GET show new\n', data)
         res.render('nomination_new', {
-          persons: data[0],
+          staffs: data[0],
           locations: data[1],
           awards: data[2]
         })
@@ -47,7 +47,7 @@ module.exports = db => {
 
         res.render('nomination_edit', {
           nomination: data[0][0],
-          persons: data[1],
+          staffs: data[1],
           awards: data[2]
         })
       })
@@ -59,7 +59,7 @@ module.exports = db => {
   router.post('/', function(req, res, next) {
     console.log("req.body", req.body)
     var createObj = {
-      personId: req.body.personId,
+      staffId: req.body.staffId,
       awardId: req.body.awardId,
       description: req.body.description
     }
@@ -77,7 +77,7 @@ module.exports = db => {
   router.post('/:id/edit', function(req, res, next) {
     var updateObj = {
       id: req.params.id,
-      personId: req.body.personId,
+      staffId: req.body.staffId,
       awardId: req.body.awardId,
       description: req.body.description
     }
@@ -167,6 +167,6 @@ var buildOneNominationObj = data => {
 //     name: name,
 //     nominationDescription: nominationDescription,
 //     winner: winner,
-//     persons: persons
+//     staffs: staffs
 //   }
 // }
