@@ -1,4 +1,5 @@
 
+
 module.exports = knex => {
   return {
 
@@ -32,6 +33,7 @@ module.exports = knex => {
         )
     },
 
+
     findByIdEdit: id => {
       console.log('DB Events - findByIdEdit:', id)
 
@@ -56,12 +58,12 @@ module.exports = knex => {
 
 
     findByOfficeDate: (officeId, date) => {
-      console.log('DB Events - findByOfficeDate:', officeId, date, new Date(date))
+      console.log('DB Events - findByOfficeDate: officeId', officeId, 'new Date', new Date(date))
 
       return knex('events')
         .where('offices.id', officeId)
-        .andWhere('events.startdate', '<=', new Date(date))
-        .andWhere('events.enddate', '>=', new Date(date))
+        .andWhere('events.startdate', '<=', + new Date(date))
+        .andWhere('events.enddate', '>=', + new Date(date))
         .join('offices', 'offices.id', 'events.officeId')
         .select(
           'events.id as eventId',
@@ -101,7 +103,20 @@ module.exports = knex => {
           enddate: updateObj.enddate,
           officeId: updateObj.officeId
         })
-    }
+    },
+
+
+    updateNomination: updateObj => {
+      console.log('DB Events - updateNomination:', updateObj)
+
+      return knex('nominations')
+        .where({ id: updateObj.id })
+        .update({
+          awardId: updateObj.awardId,
+          staffId: updateObj.staffId,
+          description: updateObj.description
+        })
+    },
 
 
   }

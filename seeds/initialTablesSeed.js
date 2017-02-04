@@ -56,6 +56,16 @@ exports.seed = function(knex, Promise) {
       name: 'Harper',
       description: 'Positive client feedback'
     }),
+    knex('awardcategorys').insert({
+      id: 54,
+      name: 'Yellowness',
+      description: 'Showing off Intergens value'
+    }),
+    knex('awardcategorys').insert({
+      id: 55,
+      name: 'Brightest Grad',
+      description: 'Being a good grad'
+    }),
 
 
     // 3000-5999
@@ -152,6 +162,17 @@ exports.seed = function(knex, Promise) {
       id: 507,
       eventId: 131,
       awardcategoryId: 53
+    }),
+
+    knex('awards').insert({
+      id: 508,
+      eventId: 133,
+      awardcategoryId: 54
+    }),
+    knex('awards').insert({
+      id: 509,
+      eventId: 133,
+      awardcategoryId: 55
     }),
 
 

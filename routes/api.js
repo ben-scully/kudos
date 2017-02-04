@@ -61,6 +61,20 @@ module.exports = dbs => {
   })
 
 
+  router.get('/awards', function(req, res, next) {
+    console.log('GET /api/awards QUERY:\n', req.query)
+
+    dbs.awards.findByEventId(req.query.eventId)
+      .then( data => {
+
+        console.log('GET /api/awards:\n', data)
+
+        res.json(data)
+      })
+      .catch( error => console.log(error) )
+  })
+
+
   router.post('/winners', function(req, res, next) {
     console.log('POST /api/winners QUERY:\n', req.query)
     var id = req.query.nominationid
