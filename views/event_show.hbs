@@ -1,0 +1,79 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">
+          <a href="/events/{{eventId}}">{{eventName}}</a>
+        </li>
+      </ol>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{eventName}}  -  {{eventOfficeName}}  -  {{dateformat eventEnddate}}</h2>
+    </div>
+  </div>
+
+  {{#each eventAwards }}
+    {{#if (openingRow @index) }}
+      <div class="row">
+    {{/if}}
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <a href="/events/{{../eventId}}/awards/{{awardId}}">
+            <p>
+              {{awardcategoryName}}  -  {{awardcategoryDescription}}
+            </p>
+          </a>
+        </div>
+        <div class="panel-body event-award">
+          <p>Nominations:</p>
+          <a href="/events/{{../eventId}}/awards/{{awardId}}/nominations/new">
+            <img src="/images/add.png" alt="Add Nomination">
+          </a>
+        </div>
+
+        <div class="list-group">
+          {{#each awardNominations }}
+            <div class="list-group">
+              <div class="list-group-item">
+
+                <div class="event-nomination nomination" data-nominationid="{{nominationId}}" data-nominationwinner="{{nominationWinner}}" data-eventenddate="{{../../eventEnddate}}">
+
+                  <div class="event-nominationContent">
+                    <img class="event-nominationProfilePic" src="/images/profile-pic.png" alt="Staff Profile Picture">
+
+                    <a href="/events/{{../../eventId}}/awards/{{../awardId}}/nominations/{{nominationId}}">
+                      <h4>{{staffName}}</h4>
+                    </a>
+                    <div class="event-nominationButtons">
+                      <img class="winner" style="display: none;" src="/images/tick.png" alt="Winner">
+                      <img class="loser" style="display: none;" src="/images/cross.png" alt="Loser">
+                      <img class="maybe" src="/images/waiting.png" alt="Waiting">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+      </div>
+    </div>
+
+    {{#if (closingRow @index) }}
+      </div>
+    {{/if}}
+  {{/each}}
+
+</div>

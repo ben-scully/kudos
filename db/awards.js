@@ -1,78 +1,68 @@
-var knexConfig = require('../knexfile.js')
-var knex = require('knex')(knexConfig["development"])
 
-module.exports = {
+module.exports = knex => {
+  return {
 
-  findAll: () => {
-    return knex('awards')
-      .join('locations', 'locations.id', 'awards.locationId')
-      .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-      .select(
-        'awards.id as id',
-        'locations.name as location',
-        'awardcategorys.name as awardcategory'
-      )
-  },
 
-  findAllOptions: () => {
-    return Promise.all([
-      knex('locations').select(),
-      knex('awardcategorys').select()
-    ])
-  },
+    findAll: () => {
+      return knex('awards').select()
+    },
 
-  findById: id => {
-    console.log('AWARDS findById\n', id)
-    return Promise.all([
-      knex('awards')
-        .where({ 'awards.id': id })
-        .join('locations', 'locations.id', 'awards.locationId')
-        .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .select(
-          'awards.id as id',
-          'locations.name as location',
-          'awardcategorys.name as awardcategory'
-        ),
-      knex('nominations')
-        .where({ 'nominations.awardId': id })
-        .join('persons', 'persons.id', 'nominations.personId')
-        .select(
-          'persons.id as id',
-          'persons.name as name',
-          'nominations.id as nominationId',
-          'nominations.winner as winner',
-          'nominations.description as description'
-        )
-      ])
-  },
 
-  findByIdPlusOptions: id => {
-    return Promise.all([
-      knex('awards')
-        .where({ 'awards.id': id })
-        .join('locations', 'locations.id', 'awards.locationId')
-        .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .select(
-          'awards.id as id',
-          'locations.name as location',
-          'awardcategorys.name as awardcategory'
-        ),
-      knex('locations').select(),
-      knex('awardcategorys').select()
-    ])
-  },
+    findById: id => {
 
-  create: createObj => {
-    return knex('awards').insert(createObj)
-  },
+      return Promise.all([
 
-  update: updateObj => {
-    return knex('awards')
-      .where({ id: updateObj.id })
-      .update({
-        locationId: updateObj.locationId,
-        awardcategoryId: updateObj.awardcategoryId
-      })
+        knex('events')
+          .join('awards', 'awards.eventId', 'events.id')
+          .join('offices', 'offices.id', 'events.officeId')
+          .where({ 'awards.id': id })
+          .limit(1)
+          .select(
+            'offices.name as office',
+            'events.end as enddate',
+            'events.start as startdate'
+          ),
+
+        knex('awards')
+          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
+          .where({ 'awards.id': id })
+          .select(
+            'awards.id as id',
+            'awardcategorys.name as awardcategory',
+            'awardcategorys.description as description'
+          ),
+
+        knex('nominations')
+          .join('awards', 'awards.id', 'nominations.awardId')
+          .join('staffs', 'staffs.id', 'nominations.staffId')
+          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
+          .join('events', 'events.id', 'awards.eventId')
+          .where({ 'awards.id': id })
+          .select(
+            'awards.id as awardId',
+            'nominations.winner as winner',
+            'nominations.id as id',
+            'staffs.name as name',
+            'events.end as enddate',
+            'events.start as startdate'
+          )
+
+        ])
+    },
+
+
+    create: createObj => {
+      return knex('awards').insert(createObj)
+    },
+
+
+    update: updateObj => {
+      return knex('awards')
+        .where({ id: updateObj.id })
+        .update({
+        })
+    }
+
+
   }
-
 }

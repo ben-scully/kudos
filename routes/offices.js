@@ -5,52 +5,35 @@ module.exports = db => {
 
   // Show All
   router.get('/', function(req, res, next) {
-    res.render('award_index')
-  });
-
-
-  // Show Create One
-  router.get('/new', function(req, res, next) {
-    res.render('award_new')
-  });
-
-
-  // Show One
-  router.get('/:id', function(req, res, next) {
-    console.log('GET /:id PARAMS:\n', req.params)
-
-    db.findById(req.params.id)
+    db.findAll()
       .then( data => {
-
-        var jsonObj = buildAwardObj(data)
-        console.log('GET /:id JSON:\n', jsonObj)
-
-        res.render('award_show', jsonObj)
+        res.render('office_index', { offices: data })
       })
       .catch( error => { console.log(error) })
   });
 
 
-  var buildAwardObj = data => {
-    var location = data[0][0].location
-    var date = data[0][0].date
-    var award = data[1][0]
-    var nominations = data[2]
+  // Show Create One
+  router.get('/new', function(req, res, next) {
+    res.render('office_new')
+  });
 
-    return {
-      location: location,
-      date: date,
-      award: award,
-      nominations: nominations
-    }
-  }
+
+  // Show One
+  router.get('/:id', function(req, res, next) {
+    db.findById(req.params.id)
+      .then( data => {
+        res.render('office_show', data[0])
+      })
+      .catch( error => { console.log(error) })
+  });
 
 
   // Show Edit One
   router.get('/:id/edit', function(req, res, next) {
     db.findById(req.params.id)
       .then( data => {
-        res.render('award_edit', data[0])
+        res.render('office_edit', data[0])
       })
       .catch( error => { console.log(error) })
   });
@@ -65,7 +48,7 @@ module.exports = db => {
 
     db.create(createObj)
       .then( data => {
-        res.redirect('/awards')
+        res.redirect('/offices')
       })
       .catch( error => { console.log(error) })
   });
@@ -81,7 +64,7 @@ module.exports = db => {
 
     db.update(updateObj)
       .then( data => {
-        res.redirect('/awards')
+        res.redirect('/offices')
       })
       .catch( error => { console.log(error) })
   });

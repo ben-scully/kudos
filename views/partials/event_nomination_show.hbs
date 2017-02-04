@@ -1,0 +1,30 @@
+
+<div class="list-group-item">
+  <div class="nomination" data-nominationid="{{nominationId}}" data-nominationwinner="{{nominationWinner}}" data-eventenddate="{{../../eventEnddate}}">
+    <img class="staffProfilePic" src="/images/profile-pic.png" alt="Staff Profile Picture">
+    {{!-- <img class="staffProfilePic" src="{{staffProfilePic}}" alt="Staff Profile Picture"> --}}
+
+    <div class="staffName">
+      {{!-- <a href="{{nominationLink}}"> --}}
+      <a href="/events/{{../../eventId}}/awards/{{awardId}}/nominations/{{nominationId}}">
+        {{staffName}}
+      </a>
+      <a href="/events/{{../../eventId}}/awards/{{../awardId}}/nominations/{{nominationId}}">
+        {{staffName}}
+      </a>
+      <a href="/events/{{../../eventId}}/awards/{{../../awardId}}/nominations/{{nominationId}}">
+        {{staffName}}
+      </a>
+    </div>
+
+    <div class="nominationDescription">
+      <p>{{nominationDescription}}</p>
+    </div>
+
+    <div class="nominationWinner">
+      <img style="display: none;" src="/images/tick.png" alt="Winner">
+      <img style="display: none;" src="/images/cross.png" alt="Loser">
+      <img src="/images/waiting.png" alt="Waiting">
+    </div>
+  </div>
+</div>

@@ -1,24 +1,45 @@
-<h1>Edit Award (id: {{award.id}})</h1>
-
-<form action="/awards/{{award.id}}/edit" method="post">
-
-  <div class="form-group">
-    <label for="locationId">Location (current: {{award.location}})</label>
-    <select class="form-control" name="locationId">
-      {{#each locations }}
-        <option value="{{id}}">{{name}}</option>
-      {{/each}}
-    </select>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Friday Meeting{{name}}  -  {{office}}  -  {{dateformat date}}</h2>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="awardcategoryId">Award Category (current: {{award.awardcategory}})</label>
-    <select class="form-control" name="awardcategoryId">
-      {{#each awardcategorys }}
-        <option value="{{id}}">{{name}}</option>
-      {{/each}}
-    </select>
-  </div>
+  <div class="row">
 
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <p>{{awardcategory.awardcategory}}  -  {{awardcategory.description}}</p>
+        </div>
+        <div class="panel-body">
+          <p>Nominations:</p>
+        </div>
+
+        <ul class="list-group">
+          {{#each nominations }}
+            <li class="staff list-group-item">
+              <img height="50px" src="https://img.clipartfest.com/fd7d1ac3605a7cd2954a6ea29a9c88cc_business-staff-cartoon-business-staff-clipart_326-425.jpeg" alt="">
+              <a href="/fridaymeetings/onenomination/{{id}}">
+                {{name}}
+              </a>
+              <p>{{description}}</p>
+              {{#if winner}}
+                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+              {{else}}
+                {{#if (pastDate date)}}
+                  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                {{else}}
+                  <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                {{/if}}
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</div>

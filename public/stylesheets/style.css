@@ -7,8 +7,118 @@ a {
   color: #00B7FF;
 }
 
-.person {
+.event-award a img {
+  height: 30px;
+}
+
+.award-award a img {
+  height: 30px;
+}
+
+/*********************************************
+              Event-Nomination
+*********************************************/
+.event-nomination {
+  /* not required */
+}
+
+.event-nominationContent {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+
+  height: 60px;
+}
+
+.event-nominationProfilePic {
+  height: 100%;
+}
+
+.event-nominationButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.event-nominationButtons a,
+.event-nominationButtons img {
+  height: 60%;
+}
+
+
+
+
+
+/*********************************************
+              Award-Nomination
+*********************************************/
+.award-nomination {
+  /* not required */
+}
+
+.award-nominationContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100px;
+}
+
+.award-nominationProfilePic {
+  height: 100%;
+}
+
+.award-nominationButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.award-nominationButtons a,
+.award-nominationButtons img {
+  height: 60%;
+}
+
+
+
+
+
+/*********************************************
+              Nomination-Nomination
+*********************************************/
+.nomination-nomination {
+  /* not required */
+}
+
+.nomination-nominationContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100px;
+}
+
+.nomination-nominationProfilePic {
+  height: 100%;
+}
+
+.nomination-nominationButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.nomination-nominationButtons a,
+.nomination-nominationButtons img {
+  height: 60%;
+}
+
+.nomination-nominationBot p {
+  font-size: 24px;
 }

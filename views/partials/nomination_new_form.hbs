@@ -1,35 +1,44 @@
 <form action="/nominations" method="post">
 
   <div class="form-group">
-    <label for="personId">Person</label>
-    <select class="form-control" name="personId">
-      {{#each persons}}
+    <label for="officeId">Office</label>
+    <select class="form-control" name="officeId">
+      {{#each nomination_new_form.offices}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
   </div>
 
   <div class="form-group">
-    <label for="locationId">Location</label>
-    <select class="form-control" name="locationId">
-      {{#each locations}}
+    <label for="weekId">Week</label>
+    <select class="form-control" name="weekId">
+      {{#each nomination_new_form.weeks}}
+        <option value="{{id}}">{{dateformat date}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="awardcategoryId">Award</label>
+    <select class="form-control" name="awardcategoryId">
+      {{#each nomination_new_form.awards}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
   </div>
 
   <div class="form-group">
-    <label for="awardId">Award</label>
-    <select class="form-control" name="awardId">
-      {{#each awards}}
-        <option value="{{id}}">{{location}}, {{awardcategory}}</option>
+    <label for="staffId">Staff</label>
+    <select class="form-control" name="staffId">
+      {{#each nomination_new_form.staffs}}
+        <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
   </div>
 
   <div class="form-group">
     <label for="description">Description</label>
-    <input type="text" class="form-control" name="description" placeholder="Description">
+    <textarea class="form-control" name="description" rows="4"></textarea>
   </div>
 
   <button type="submit" class="btn btn-default">Submit</button>

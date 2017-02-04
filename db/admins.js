@@ -1,14 +1,14 @@
-var knexConfig = require('../knexfile.js')
-var knex = require('knex')(knexConfig["development"])
 
-module.exports = {
+module.exports = knex => {
+  return {
 
-  findAll: () => {
-    return Promise.all([
-      knex('locations').select(),
-      knex('awardcategorys').select(),
-      knex('persons').select()
-    ])
+    findAll: () => {
+      return Promise.all([
+        knex('offices').select(),
+        knex('awardcategorys').select(),
+        knex('staffs').select()
+      ])
+    }
+
   }
-
 }

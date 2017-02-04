@@ -39,3 +39,7 @@ jspm_packages
 # MAC Specific
 .DS_Store
 Thumbs.db
+
+# Project Specific
+*.sqlite3
+*jsonStaff.txt
