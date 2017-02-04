@@ -140,7 +140,7 @@ module.exports = db => {
   })
 
 
-  // Show new Nomination -> Award -> Event
+  // Create new Nomination -> Award -> Event
   router.post('/:id/awards/:awardid/nominations', (req, res, next) =>{
     console.log('POST /:id/awards/:awardid/nominations PARAMS:\n', req.params)
     console.log('POST /:id/awards/:awardid/nominations BODY:\n', req.body)
@@ -160,6 +160,32 @@ module.exports = db => {
         console.log('GET /:id/awards/:awardid/nominations/new JSON:\n', jsonObj)
 
         var url = '/events/' + req.params.id + '/awards/' + req.params.awardid
+        res.redirect(url)
+      })
+      .catch( error => { console.log(error) })
+  })
+
+
+  // Post edit Nomination -> Award -> Event
+  router.post('/:id/awards/:awardid/nominations/:nominationid', (req, res, next) =>{
+    console.log('POST /:id/awards/:awardid/nominations/:nominationid PARAMS:\n', req.params)
+    console.log('POST /:id/awards/:awardid/nominations/:nominationid BODY:\n', req.body)
+
+    var updateObj = {
+      id: req.params.nominationid,
+      awardId: req.body.nominationAwardId,
+      staffId: req.body.nominationStaffId,
+      description: req.body.nominationDescription
+    }
+
+    db.updateNomination(updateObj)
+      .then( data => {
+        console.log('POST /:id/awards/:awardid/nominations/:nominationid RAW:\n', data)
+
+        // var jsonObj = model.eventFilterByNominationId(data, req.params.awardid, req.params.nominationid)
+        // console.log('GET /:id/awards/:awardid/nominations/:nominationid JSON:\n', jsonObj)
+
+        var url = '/events/' + req.params.id + '/awards/' + req.params.awardid + '/nominations/' + req.params.nominationid
         res.redirect(url)
       })
       .catch( error => { console.log(error) })

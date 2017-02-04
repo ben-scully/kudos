@@ -1,5 +1,6 @@
 var knex = require('./knexMaster')
 
+
 var offices = require('./offices')(knex)
 var awardcategorys = require('./awardcategorys')(knex)
 var staffs = require('./staffs')(knex)

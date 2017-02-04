@@ -2,44 +2,41 @@
 
   <div class="form-group">
     <label for="officeId">Office</label>
-    <select class="form-control" name="officeId">
-      {{#each nomination_new_form.offices}}
-        <option value="{{id}}">{{name}}</option>
-      {{/each}}
+    <select id="nomination_new_form-office" data-officeid="{{officeId}}" class="form-control" name="officeId">
+      <option value="-1" selected="selected">Select a Office</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="weekId">Week</label>
-    <select class="form-control" name="weekId">
-      {{#each nomination_new_form.weeks}}
-        <option value="{{id}}">{{dateformat date}}</option>
-      {{/each}}
+    <label for="date">Filter Events by Date</label>
+    <input id="nomination_new_form-date" type="date" class="form-control" name="date">
+  </div>
+
+  <div class="form-group">
+    <label for="eventId">Event</label>
+    <select id="nomination_new_form-event" data-eventid="{{eventId}}" class="form-control" name="eventId">
+      <option value="-1" selected="selected">Select an Event</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="awardcategoryId">Award</label>
-    <select class="form-control" name="awardcategoryId">
-      {{#each nomination_new_form.awards}}
-        <option value="{{id}}">{{name}}</option>
-      {{/each}}
+    <label for="awardId">Award</label>
+    <select id="nomination_new_form-award" data-awardid="{{awardId}}" class="form-control" name="awardId">
+      <option value="-1" selected="selected">Select an Award</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="staffId">Staff</label>
-    <select class="form-control" name="staffId">
-      {{#each nomination_new_form.staffs}}
-        <option value="{{id}}">{{name}}</option>
-      {{/each}}
+    <select id="nomination_new_form-staff" data-staffid="{{staffId}}" class="form-control" name="staffId">
+      <option value="-1" selected="selected">Select a Staff</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="description">Description</label>
-    <textarea class="form-control" name="description" rows="4"></textarea>
+    <textarea id="nomination_new_form-description" cdata-staffid="{{description}}" lass="form-control" name="description" rows="4"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button id="nomination_new_form-submit" type="submit" class="btn btn-default">Submit</button>
 </form>

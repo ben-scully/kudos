@@ -2,76 +2,16 @@
 module.exports = knex => {
   return {
 
+
     findByIdBasic: id => {
+      console.log('DB Nominations - findByIdBasic:', id)
+
       return knex('nominations').where({ id: id }).select()
-    },
-    
-    nominationForm: () => {
-      return Promise.all([
-        knex('staffs').select(),
-        knex('offices').select(),
-        knex('offices').select(), // temporary
-        knex('awards')
-          .join('offices', 'offices.id', 'awards.officeId')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .select(
-            'awards.id as id',
-            'offices.name as office',
-            'awardcategorys.name as awardcategory'
-          )
-      ])
-    },
-
-    findAll: () => {
-      return knex('nominations')
-        .join('awards', 'awards.id', 'nominations.awardId')
-        .join('offices', 'offices.id', 'awards.officeId')
-        .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('staffs', 'staffs.id', 'nominations.staffId')
-        .select(
-          'nominations.id as id',
-          'awards.id as awardId',
-          'offices.name as office',
-          'awardcategorys.name as awardcategory',
-          'staffs.name as staff',
-          'nominations.winner as winner'
-        )
-    },
-
-    findAllByFilter: filterObj => {
-      return knex('nominations')
-        .where(filterObj)
-        .join('awards', 'awards.id', 'nominations.awardId')
-        .join('offices', 'offices.id', 'awards.officeId')
-        .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-        .join('staffs', 'staffs.id', 'nominations.staffId')
-        .select(
-          'nominations.id as id',
-          'awards.id as awardId',
-          'offices.name as office',
-          'awardcategorys.name as awardcategory',
-          'staffs.name as staff',
-          'nominations.winner as winner'
-        )
-    },
-
-    findAllOptions: () => {
-      return Promise.all([
-        knex('staffs').select(),
-        knex('offices').select(),
-        knex('awards')
-          .join('offices', 'offices.id', 'awards.officeId')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .select(
-            'awards.id as id',
-            'offices.name as office',
-            'awardcategorys.name as awardcategory'
-          )
-      ])
     },
 
 
     findById: id => {
+      console.log('DB Nominations - findById:', id)
 
       return knex('nominations')
         .join('events', 'events.id', 'awards.eventId')
@@ -81,69 +21,50 @@ module.exports = knex => {
         .join('staffs', 'staffs.id', 'nominations.staffId')
         .where({ 'nominations.id': id })
         .select(
-          'events.end as enddate',
-          'events.start as startdate',
-          'offices.name as office',
-          'awardcategorys.name as awardcategory',
+          'events.end as eventEnddate',
+          'events.start as eventStartdate',
+          'offices.name as eventOffice',
+          'awardcategorys.name as awardcategoryName',
           'awardcategorys.description as awardcategoryDescription',
-          'staffs.name as name',
           'nominations.description as nominationDescription',
-          'nominations.winner as winner'
+          'nominations.winner as nominationWinner',
+          'staffs.name as staffName'
         )
     },
 
 
-    findByIdPlusOptions: id => {
-      return Promise.all([
-        knex('nominations')
-          .where({ 'nominations.id': id})
-          .join('awards', 'awards.id', 'nominations.awardId')
-          .join('offices', 'offices.id', 'awards.officeId')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .join('staffs', 'staffs.id', 'nominations.staffId')
-          .select(
-            'nominations.id as id',
-            'awards.id as awardId',
-            'offices.name as office',
-            'awardcategorys.name as awardcategory',
-            'staffs.name as staff',
-            'nominations.description as description',
-            'nominations.winner as winner'
-          ),
-        knex('staffs').select(),
-        knex('awards')
-          .join('offices', 'offices.id', 'awards.officeId')
-          .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
-          .select(
-            'awards.id as id',
-            'offices.name as office',
-            'awardcategorys.name as awardcategory'
-          )
-      ])
-    },
+    findAll: () => {
+      console.log('DB Nominations - findAll: n/a')
 
-    findByFilter: filterObj => {
       return knex('nominations')
-        .where(filterObj)
         .join('awards', 'awards.id', 'nominations.awardId')
         .join('offices', 'offices.id', 'awards.officeId')
         .join('awardcategorys', 'awardcategorys.id', 'awards.awardcategoryId')
         .join('staffs', 'staffs.id', 'nominations.staffId')
         .select(
-          'nominations.id as id',
           'awards.id as awardId',
-          'offices.name as office',
-          'awardcategorys.name as awardcategory',
-          'staffs.name as staff',
-          'nominations.winner as winner'
+          'offices.name as eventOffice',
+          'awardcategorys.id as awardcategoryId',
+          'awardcategory.description as awardcategoryDescription',
+          'awardcategorys.name as awardcategoryName',
+          'nominations.id as nominationId',
+          'nominations.description as nominationDescription',
+          'nominations.winner as nominationWinner',
+          'staffs.name as staffName'
         )
     },
 
+
     create: createObj => {
+      console.log('DB Nominations - create:', createObj)
+
       return knex('nominations').insert(createObj)
     },
 
+
     update: updateObj => {
+      console.log('DB Nominations - update:', updateObj)
+
       return knex('nominations')
         .where({ id: updateObj.id })
         .update({
@@ -153,7 +74,10 @@ module.exports = knex => {
         })
     },
 
+
     updateWinner: updateObj => {
+      console.log('DB Nominations - updateWinner:', updateObj)
+
       return knex('nominations')
         .where({
           id: updateObj.id
@@ -162,6 +86,7 @@ module.exports = knex => {
           winner: updateObj.winner
         })
     }
+
 
   }
 }

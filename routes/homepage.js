@@ -7,23 +7,8 @@ module.exports = db => {
   router.get('/', function(req, res, next) {
     console.log('GET /')
 
-    db.index()
-      .then( data => {
-        console.log('GET index\n')
-
-        var titleObj = buildTitleObj(data)
-        console.log('titleObj:\n', titleObj)
-
-        res.render('homepage', { title: titleObj })
-      })
-      .catch( error => { console.log(error) })
+    res.render('homepage', { title: 'Kudos' })
   });
 
   return router;
-}
-
-
-var buildTitleObj = data => {
-  // Under development
-  return 'Kudos'
 }

@@ -2,10 +2,12 @@
 /**************************
         INITIAL
 /**************************/
-$(function(){
-  initNomineeStatus()
-  initAwardingNominee()
-})
+function init() {
+  $(function() {
+    console.log('initNomineeStatus...')
+    initNomineeStatus()
+  })
+}
 
 function initNomineeStatus() {
   var nominations = $('.nomination')
@@ -65,3 +67,5 @@ function updateDataNominationWinner(nomination) {
   var invertedWinner = winner == 1 ? 0 : 1
   $(nomination).attr('data-nominationwinner', invertedWinner)
 }
+
+module.exports = init

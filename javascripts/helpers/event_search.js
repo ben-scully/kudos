@@ -1,18 +1,12 @@
 
-/**************************
-        INITIAL
-/**************************/
-$(function(){
-  initEventSearch()
-})
 
-function initEventSearch() {
+function init() {
+  console.log('event_search: init...')
+
   initEventSearchOffice()
   initEventSearchDate()
   initEventSearchEvent()
 }
-
-
 
 
 
@@ -30,12 +24,13 @@ function populateEventSearchOffice() {
       return { id:item.id, text: item.name }
     })
 
-    console.log('Results Offices:')
-    if (results)
-      if (results.length > 2)
-        console.log(results[0], results[1], results[2])
+    console.log('Results Offices: >', results)
 
-    $("#eventSearchOffice").select2({
+    var limit = results.length > 3 ? 3 : results.length
+    for (var i = 0; i < limit; i++)
+      console.log(results[i])
+
+    $("#event_search-office").select2({
       data: results,
       allowClear: true
     })
@@ -43,7 +38,7 @@ function populateEventSearchOffice() {
 }
 
 function addListenerEventSearchOffice() {
-  $("#eventSearchOffice").on('change', function() {
+  $("#event_search-office").on('change', function() {
     var value = $(this).val()
 
     if (!value || value < 0) {
@@ -59,28 +54,15 @@ function addListenerEventSearchOffice() {
 
 
 
-
-
 /**************************
             DATE
 /**************************/
 function initEventSearchDate() {
-  // $('#eventSearchDate').datepicker({
-  //   autoclose: true,
-  //   format: {
-  //     toDisplay: function (date, format, language) {
-  //       return formatDate(date)
-  //     },
-  //     toValue: function (date, format, language) {
-  //       return formatDate(date)
-  //     }
-  //   }
-  // })
   addListenerEventSearchDate()
 }
 
 function addListenerEventSearchDate() {
-  $("#eventSearchDate").on('change', function() {
+  $("#event_search-date").on('change', function() {
     var value = $(this).val()
 
     if (!value || value < 0) {
@@ -93,16 +75,14 @@ function addListenerEventSearchDate() {
 }
 
 function disableClearEventSearchDate() {
-  $('#eventSearchDate').attr('disabled', true);
-  $('#eventSearchDate').val('')
+  $('#event_search-date').attr('disabled', true);
+  $('#event_search-date').val('')
 }
 
 function enableClearEventSearchDate() {
-  $('#eventSearchDate').attr('disabled', false);
-  $('#eventSearchDate').val('')
+  $('#event_search-date').attr('disabled', false);
+  $('#event_search-date').val('')
 }
-
-
 
 
 
@@ -120,15 +100,16 @@ function updateEventSearchEvent(officeId, date) {
       var results =  data.map(function(item) {
         return {
           id: item.eventId,
-          text: item.eventName + ' ' + formatDate(item.eventStartdate) + ' - ' + formatDate(item.eventEnddate) }
+          text: item.eventName + ': ' + window.custom.formatdate.medium(item.eventStartdate) + ' - ' + window.custom.formatdate.medium(item.eventEnddate) }
       })
 
-      console.log('Results Events:')
-      if (results)
-        if (results.length > 2)
-          console.log(results[0], results[1], results[2])
+      console.log('Results Events: >', results)
 
-      $("#eventSearchEvent").select2({
+      var limit = results.length > 3 ? 3 : results.length
+      for (var i = 0; i < limit; i++)
+        console.log(results[i])
+
+      $("#event_search-event").select2({
         data: results,
         allowClear: true
       })
@@ -136,7 +117,7 @@ function updateEventSearchEvent(officeId, date) {
 }
 
 function addListenerEventSearchEvent() {
-  $("#eventSearchEvent").on('change', function() {
+  $("#event_search-event").on('change', function() {
     var value = $(this).val()
 
     if (!value) {
@@ -149,44 +130,30 @@ function addListenerEventSearchEvent() {
 }
 
 function disableClearEventSearchEvent() {
-  $('#eventSearchEvent').attr('disabled', true);
-  $('#eventSearchEvent').val('')
+  $('#event_search-event').attr('disabled', true);
+  $('#event_search-event').empty()
 }
 
 function enableClearEventSearchEvent() {
-  $('#eventSearchEvent').attr('disabled', false);
-  $('#eventSearchEvent').val('')
+  $('#event_search-event').attr('disabled', false);
+  $('#event_search-event')
+    .empty()
+    .append('<option selected="selected" value="-1">Select an Event</option>')
 
-  var officeId = $('#eventSearchOffice').val()
-  var date = $('#eventSearchDate').val()
+  var officeId = $('#event_search-office').val()
+  var date = $('#event_search-date').val()
   updateEventSearchEvent(officeId, date)
 }
 
 function disableEventSearchSubmit() {
-  $('#eventSearchSubmit').attr('href', '');
+  $('#event_search-submit').attr('href', '');
 }
 
 function enableEventSearchSubmit() {
-  var eventId = $('#eventSearchEvent').val()
+  var eventId = $('#event_search-event').val()
   var link = '/events/' + eventId
-  $('#eventSearchSubmit').attr('href', link);
+  $('#event_search-submit').attr('href', link);
 }
 
 
-
-
-
-/**************************
-          HELPER
-/**************************/
-function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-}
+module.exports = init
