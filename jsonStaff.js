@@ -1,4 +1,4 @@
-var knex = require('./db/knexMaster')
+var knex = require('./dbs/knexMaster')
 fs = require('fs');
 
 

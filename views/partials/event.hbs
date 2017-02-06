@@ -1,0 +1,27 @@
+
+<div class="event-box">
+
+  <div class="event-box-header">
+    <h2>Event:</h2>
+    <p>{{name}}</p>
+    <p>{{officeName}}</p>
+    <p>
+      {{dateformat startdate}} - {{dateformat enddate}}
+    </p>
+    <span>
+      <p>Add Award</p>
+      <img src="/images/add.png" alt="Add">
+    </span>
+  </div>
+
+  <div class="awards-title">
+    <h4>Awards:</h4>
+  </div>
+
+  <div class="awards-box-wrapper">
+    {{#each awards}}
+      {{> award }}
+    {{/each}}
+  </div>
+
+</div>

@@ -1,0 +1,23 @@
+
+<div class="award-box">
+
+  <div class="award-box-header">
+    <h3>Award:</h3>
+    <p>{{awardcategoryName}}  -  {{awardcategoryDescription}}</p>
+    <span>
+      <p>Add Nomination</p>
+      <img src="/images/add.png" alt="Add">
+    </span>
+  </div>
+
+  <div class="nominations-title">
+    <h4>Nominations:</h4>
+  </div>
+
+  <div class="nominations-box-wrapper">
+    {{#each nominations}}
+      {{> nomination}}
+    {{/each}}
+  </div>
+
+</div>

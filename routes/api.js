@@ -1,96 +1,63 @@
+"use strict"
+
 var express = require('express');
 var router = express.Router();
 
-
-module.exports = dbs => {
-
-
-  router.get('/offices', function(req, res, next) {
-    console.log('GET /api/offices:\n')
-
-    dbs.offices.findAll()
-      .then( data => {
-
-        console.log('GET /api/offices:\n', data)
-
-        res.json(data)
-      })
-      .catch( error => console.log(error) )
-  })
-
-
-  router.get('/staffs', function(req, res, next) {
-    console.log('GET /api/staffs:\n')
-
-    dbs.staffs.findAll()
-      .then( data => {
-
-        console.log('GET /api/staffs:\n', data[0], '\n', data[1], '\n........' + data.length)
-
-        res.json(data)
-      })
-      .catch( error => console.log(error) )
-  })
-
+module.exports = models => {
 
   router.get('/events', function(req, res, next) {
-    console.log('GET /api/events QUERY:\n', req.query)
+    console.log('GET /api/events?query=xxx QUERY:\n', req.query)
 
-    dbs.events.findByOfficeDate(req.query.officeId, req.query.date)
-      .then( data => {
+    if (req.query.eventId) {
 
-        console.log('GET /api/events:\n', data)
+      models.events.findById(req.query.eventId)
+        .then( data => {
+          console.log('GET /api/events?eventId=xxx:\n', data)
+          res.json(data)
+        })
+        .catch( error => console.log(error) )
 
-        res.json(data)
-      })
-      .catch( error => console.log(error) )
+    } else {
+      console.log('GET /api/events?????\n', 'ERROR. Passed an invalid url query.')
+    }
+
   })
-
-
-  router.get('/awardcategorys', function(req, res, next) {
-    console.log('GET /api/awardcategorys QUERY:\n', req.query)
-
-    dbs.awardcategorys.findByEventId(req.query.eventid)
-      .then( data => {
-
-        console.log('GET /api/awardcategorys:\n', data)
-
-        res.json(data)
-      })
-      .catch( error => console.log(error) )
-  })
-
 
   router.get('/awards', function(req, res, next) {
     console.log('GET /api/awards QUERY:\n', req.query)
 
-    dbs.awards.findByEventId(req.query.eventId)
-      .then( data => {
+    if (req.query.awardId) {
 
-        console.log('GET /api/awards:\n', data)
+      models.awards.findById(req.query.awardId)
+        .then( data => {
+          console.log('GET /api/awards?awardId=xxx:\n', data)
+          res.json(data)
+        })
+        .catch( error => console.log(error) )
 
-        res.json(data)
-      })
-      .catch( error => console.log(error) )
+    } else {
+      console.log('GET /api/awards?????\n', 'ERROR. Passed an invalid url query.')
+    }
+
   })
 
+  router.get('/nominations', function(req, res, next) {
+    console.log('GET /api/nominations QUERY:\n', req.query)
 
-  router.post('/winners', function(req, res, next) {
-    console.log('POST /api/winners QUERY:\n', req.query)
-    var id = req.query.nominationid
+    if (req.query.nominationId) {
 
-    dbs.nominations.findByIdBasic(id)
-      .then(data => {
-        return dbs.nominations.updateWinner({ id: id, winner: !data[0].winner })
-      })
-      .then(data => {
-        console.log('POST /api/winners:\n', data)
+      models.nominations.findById(req.query.nominationId)
+        .then( data => {
+          console.log('GET /api/nominations?nominationId=xxx:\n', data)
+          res.json(data)
+        })
+        .catch( error => console.log(error) )
 
-        res.json(data)
-      })
-      .catch( error => console.log(error) )
+    } else {
+      console.log('GET /api/nominations?????\n', 'ERROR. Passed an invalid url query.')
+    }
+
   })
-
 
   return router
 }
