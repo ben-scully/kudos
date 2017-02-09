@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2",
-    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run && node jsonStaff.js"
+    "start": "nodemon ./bin/www",
+    "asdf": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2",
+    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run && node jsonStaff.js",
+    "watching": "watchify javascripts/index.js -o public/javascripts/bundle.js"
   },
   "dependencies": {
     "body-parser": "~1.15.2",

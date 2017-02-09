@@ -149,11 +149,6 @@ exports.seed = function(knex, Promise) {
       awardcategoryId: 50
     }),
     knex('awards').insert({
-      id: 505,
-      eventId: 131,
-      awardcategoryId: 51
-    }),
-    knex('awards').insert({
       id: 506,
       eventId: 131,
       awardcategoryId: 52

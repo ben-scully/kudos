@@ -18,66 +18,109 @@ img {
 
 
 
-.event-box {
-  background: rgba(76, 175, 80, 0.3);
-  padding: 10px;
+/********************************************************
+                        All
+  .box || .box-header || .info || .buttons || .wrapper
+*********************************************************/
+.box {
 }
 
-.event-box-header {
+.box-header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
-.awards-title {
+.box-info {
   display: flex;
   justify-content: flex-start;
 }
 
-.awards-box-wrapper {
-  background: rgba(0, 178, 238, 0.3);
-  padding: 10px;
+.box-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.box-buttons button {
 
+}
+
+.wrapper {
   width: 100%;
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
 }
 
+
+
+/********************************************************
+                        Event
+*********************************************************/
+.event {
+}
+
+.event-box {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.event-box-header {
+}
+
+.event-box-info {
+}
+
+.event-box-buttons {
+}
+
+.awards-wrapper {
+  background: rgba(0, 178, 238, 0.2);
+}
+
+
+
+/********************************************************
+                        Award
+*********************************************************/
+.award {
+}
+
 .award-box {
-  border: solid 1px black;
+  background: rgba(0, 178, 238, 0.4);
   width: 50%;
 }
 
 .award-box-header {
-  display: flex;
-  justify-content: space-around;
 }
 
-.nominations-title {
-  display: flex;
-  justify-content: flex-start;
+.award-box-info {
 }
 
-.nominations-box-wrapper {
-  background: rgba(255, 100, 100, 0.3);
-  padding: 10px;
-
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-flow: row wrap;
+.award-box-buttons {
 }
 
+.nominations-wrapper {
+  background: rgba(255, 100, 100, 0.2);
+}
+
+
+
+
+/********************************************************
+                    Nomination
+*********************************************************/
 .nomination-box {
-  border: solid 1px black;
+  background: rgba(255, 100, 100, 0.4);
   width: 50%;
 }
 
 .nomination-box-header {
-  display: flex;
-  justify-content: space-around;
+}
+
+.nomination-box-info {
+}
+
+.nomination-box-buttons {
 }
 
 .nomination-box-description {
-
 }

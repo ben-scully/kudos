@@ -1,8 +1,7 @@
-import models from '../models/modelIndex'
+var models = require('../models/modelIndex')
 
 
 var api = require('./api')(models)
-
 // var homepage = require('./homepage')(dbs.homepage)
 var events = require('./events')(models.events)
 // var nominations = require('./nominations')(dbs.nominations)

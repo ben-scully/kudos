@@ -9,7 +9,6 @@ const buildMany = help.buildMany
 const addAwardsToEvent = help.addAwardsToEvent
 const addNominationsToAwards = help.addNominationsToAwards
 
-
 module.exports = dbs => {
   return {
 
@@ -29,6 +28,15 @@ module.exports = dbs => {
 
           console.log('Models - Awards findById: - awardObj\n', awardObj)
           return awardObj
+        })
+        .catch( error => console.log(error) )
+    },
+
+    create: createObj => {
+      return dbs.awards.create(createObj)
+        .then(data => {
+          console.log('Models - Awards create:\n', data)
+          return data
         })
         .catch( error => console.log(error) )
     }

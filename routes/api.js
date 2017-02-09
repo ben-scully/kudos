@@ -59,5 +59,41 @@ module.exports = models => {
 
   })
 
+  router.get('/awardcategorys', function(req, res, next) {
+    console.log('GET /api/awardcategorys QUERY:\n', req.query)
+
+    if (req.query.eventId) {
+
+      models.awardcategorys.findByEventId(req.query.eventId)
+        .then( data => {
+          console.log('GET /api/awardcategorys?eventId=xxx:\n', data)
+          res.json(data)
+        })
+        .catch( error => console.log(error) )
+
+    } else {
+      console.log('GET /api/awardcategorys?????\n', 'ERROR. Passed an invalid url query.')
+    }
+
+  })
+
+  router.post('/awards', function(req, res, next) {
+    console.log('POST /api/awards BODY:\n', req.body)
+
+    if (req.body) {
+
+      models.awards.create(req.body)
+        .then( data => {
+          console.log('POST /api/awards:\n', data)
+          res.json(data)
+        })
+        .catch( error => console.log(error) )
+
+    } else {
+      console.log('POST /api/awards?????\n', 'ERROR. Passed an invalid \'body\'.')
+    }
+
+  })
+
   return router
 }

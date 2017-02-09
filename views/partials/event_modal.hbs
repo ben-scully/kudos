@@ -1,0 +1,31 @@
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAward">Open Modal</button>
+
+<div class="modal fade" id="addAward" tabindex="-1" role="dialog" aria-labelledby="addAwardLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAwardLabel">Add Award</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="eventName" class="form-control-label">Event Name</label>
+            <input type="text" class="form-control" id="recipient-name" name="eventName">
+          </div>
+          <div class="form-group">
+            <label for="eventDescription" class="form-control-label">Event Description</label>
+            <textarea class="form-control" id="message-text" name="eventDescription"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Create Award</button>
+      </div>
+    </div>
+  </div>
+</div>

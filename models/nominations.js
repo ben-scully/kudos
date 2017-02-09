@@ -9,7 +9,6 @@ const buildMany = help.buildMany
 const addAwardsToEvent = help.addAwardsToEvent
 const addNominationsToAwards = help.addNominationsToAwards
 
-
 module.exports = dbs => {
   return {
 

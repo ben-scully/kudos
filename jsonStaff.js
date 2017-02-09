@@ -28,6 +28,5 @@ fs.readFile('./jsonStaff.txt', 'utf8', function (err, data) {
     knex('staffs').insert(staffObj).then()
   }
 
-
   console.log('Finished.')
 });

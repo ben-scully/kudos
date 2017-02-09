@@ -1,20 +1,20 @@
 
-<div class="award-box">
+<div id="award{{id}}" class="award award-box box" data-id="{{id}}">
 
-  <div class="award-box-header">
-    <h3>Award:</h3>
-    <p>{{awardcategoryName}}  -  {{awardcategoryDescription}}</p>
-    <span>
-      <p>Add Nomination</p>
-      <img src="/images/add.png" alt="Add">
-    </span>
+  <div class="award-box-header box-header">
+    <div class="award-box-info box-info">
+      <p>{{awardcategoryName}} - {{awardcategoryDescription}}</p>
+    </div>
+
+    <div class="award-box-buttons box-buttons">
+      <button class="btn btn-primary select select-award" type="submit">Select</button>
+      <button class="btn btn-info edit edit-award" type="submit">Edit</button>
+      <button class="btn btn-success add add-nomination" type="submit">Add Nomination</button>
+      <button class="btn btn-danger deselect deselect-award" type="submit">Close</button>
+    </div>
   </div>
 
-  <div class="nominations-title">
-    <h4>Nominations:</h4>
-  </div>
-
-  <div class="nominations-box-wrapper">
+  <div class="nominations-wrapper wrapper">
     {{#each nominations}}
       {{> nomination}}
     {{/each}}
